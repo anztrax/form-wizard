@@ -1,0 +1,60 @@
+/* Base */
+.input {
+  width: 100%;
+  box-sizing: border-box;
+
+  border-radius: 6px;
+  border: 1px solid #d0d5dd;
+
+  background-color: #ffffff;
+  color: #111827;
+
+  font-size: 0.875rem;
+  line-height: 1.4;
+
+  padding: 8px 10px;
+}
+
+/* Sizes */
+.input--sm {
+  padding: 6px 8px;
+  font-size: 0.8rem;
+}
+
+.input--md {
+  padding: 8px 10px;
+  font-size: 0.875rem;
+}
+
+.input--lg {
+  padding: 10px 12px;
+  font-size: 0.95rem;
+}
+
+/* Full width */
+.input--full-width {
+  width: 100%;
+  display: block;
+}
+
+/* Focus */
+.input:focus {
+  outline: none;
+  border-color: #2563eb;
+}
+
+/* Error */
+.input--error {
+  border-color: #dc2626;
+}
+
+.input--error:focus {
+  border-color: #b91c1c;
+}
+
+/* Disabled */
+.input:disabled {
+  background-color: #f9fafb;
+  color: #9ca3af;
+  cursor: not-allowed;
+}
