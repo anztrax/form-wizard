@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 
 import { fn } from 'storybook/test';
 
-import { Textarea } from '@/shared/components/textarea/TextArea';
+import { Textarea } from '@/shared/components/textarea/Textarea';
 
 const meta = {
   title: 'Shared/Textarea',
