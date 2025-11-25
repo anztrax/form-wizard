@@ -1,6 +1,6 @@
 "use client";
 
-import React, { forwardRef } from "react";
+import React from "react";
 import styles from "./textarea.module.css";
 
 type TextareaSize = "sm" | "md" | "lg";
