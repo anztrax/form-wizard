@@ -3,9 +3,9 @@
 import React from "react";
 import styles from "./select.module.css";
 
-type SelectSize = "sm" | "md" | "lg";
+export type SelectSize = "sm" | "md" | "lg";
 
-export type SelectProps = React.SelectHTMLAttributes<HTMLSelectElement> & {
+export type SelectProps = Omit<React.SelectHTMLAttributes<HTMLSelectElement>, 'size'> & {
   size?: SelectSize;
   hasError?: boolean;
   fullWidth?: boolean;

@@ -1,8 +1,8 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { Select } from "@/shared/components/select/Select";
-import { fn } from "storybook/test";
+import { fn } from 'storybook/test';
 
-const meta: Meta<typeof Select> = {
+const meta = {
   title: "Shared/Select",
   component: Select,
   parameters: {
@@ -31,12 +31,12 @@ const meta: Meta<typeof Select> = {
     fullWidth: false,
     disabled: false,
     defaultValue: "",
-    onChange: fn(),
+    onChange: fn()
   },
-};
+} satisfies Meta<typeof Select>;
 
 export default meta;
-type Story = StoryObj<typeof Select>;
+type Story = StoryObj<typeof meta>;
 
 const options = [
   <option value="" disabled>
