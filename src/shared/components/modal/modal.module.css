@@ -27,7 +27,7 @@
 .modal__dialog {
   pointer-events: auto;
   background-color: var(--color-modal-background);
-  border-radius: 12px;
+  border-radius: var(--radius-xl);
   box-shadow: var(--shadow-xl);
   max-height: 90vh;
   display: flex;
@@ -53,12 +53,12 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 16px;
+  padding: var(--modal-header-padding);
   border-bottom: 1px solid var(--color-modal-border);
 }
 
 .modal__title {
-  font-size: 16px;
+  font-size: var(--font-size-md);
   font-weight: 600;
   color: var(--color-text-primary);
 }
@@ -67,10 +67,10 @@
   border: none;
   background: transparent;
   cursor: pointer;
-  font-size: 20px;
+  font-size: var(--font-size-xl);
   line-height: 1;
   color: var(--color-text-muted);
-  padding: 0 4px;
+  padding: 0 var(--spacing-1);
 }
 
 .modal__close:hover {
@@ -79,18 +79,18 @@
 
 /* Body */
 .modal__body {
-  padding: 16px;
-  font-size: 14px;
+  padding: var(--modal-padding);
+  font-size: var(--font-size-sm);
   color: var(--color-text-primary);
   overflow-y: auto;
 }
 
 /* Footer */
 .modal__footer {
-  padding: 12px 16px;
+  padding: var(--modal-footer-padding);
   border-top: 1px solid var(--color-modal-border);
   display: flex;
   justify-content: flex-end;
-  gap: 8px;
+  gap: var(--modal-footer-gap);
   background-color: var(--color-border);
 }
