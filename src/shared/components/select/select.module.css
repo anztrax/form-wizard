@@ -7,37 +7,37 @@
 }
 
 .select__label {
-  font-size: 12px;
-  margin-bottom: 4px;
+  font-size: var(--font-size-xs);
+  margin-bottom: var(--spacing-1);
   color: var(--color-text-secondary);
 }
 
 .select__label-name {
-  font-size: 11px;
+  font-size: var(--font-size-xs);
   color: var(--color-text-muted);
 }
 
 /* Sizes */
 .select--size-sm .select__control {
   min-height: 28px;
-  font-size: 12px;
+  font-size: var(--font-size-xs);
 }
 
 .select--size-md .select__control {
   min-height: 32px;
-  font-size: 14px;
+  font-size: var(--font-size-sm);
 }
 
 .select--size-lg .select__control {
   min-height: 40px;
-  font-size: 16px;
+  font-size: var(--font-size-md);
 }
 
 /* Control */
 .select__control {
   border: 1px solid var(--color-input-border);
-  border-radius: 6px;
-  padding: 4px 8px;
+  border-radius: var(--radius-md);
+  padding: var(--select-padding);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -99,8 +99,8 @@
 .select__suffix {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  margin-left: 8px;
+  gap: var(--select-suffix-gap);
+  margin-left: var(--select-suffix-margin);
 }
 
 .select__clear {
@@ -151,15 +151,15 @@
 /* Dropdown */
 .select__dropdown {
   position: absolute;
-  top: calc(100% + 4px);
+  top: calc(100% + var(--spacing-1));
   left: -1px;
   right: -1px;
   z-index: 999;
 
-  padding: 4px 0;
+  padding: var(--select-dropdown-padding);
   background-color: var(--color-input-background);
   border: 1px solid var(--color-border);
-  border-radius: 8px;
+  border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg);
   max-height: 200px;
   overflow-y: auto;
@@ -168,14 +168,14 @@
 
 .select--dropdown-top .select__dropdown {
   top: auto;
-  bottom: calc(100% + 4px);
+  bottom: calc(100% + var(--spacing-1));
 }
 
 /* Option */
 .select__option {
-  padding: 6px 10px;
+  padding: var(--select-option-padding);
   cursor: pointer;
-  font-size: 14px;
+  font-size: var(--font-size-sm);
   line-height: 1.4;
   display: flex;
   align-items: center;
@@ -229,6 +229,6 @@
 
 .select__error-message {
   color: var(--color-error);
-  font-size: 12px;
-  margin-top: 4px;
+  font-size: var(--font-size-xs);
+  margin-top: var(--spacing-1);
 }
