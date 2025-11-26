@@ -1,11 +1,7 @@
-/* Base */
+/* Form */
 .form {
   display: flex;
   flex-direction: column;
-}
-
-.form--layout-horizontal {
-  /* overall form is still column – horizontal layout is per-field */
 }
 
 /* Gap between fields */
@@ -27,55 +23,24 @@
   margin-bottom: 0;
 }
 
-/* -------- FormField -------- */
-
+/* FormField */
 .form-field {
   display: flex;
   flex-direction: column;
-}
-
-/* Layout: vertical (label above control) */
-.form-field--layout-vertical {
   align-items: stretch;
 }
 
-/* Layout: horizontal (label left, control right) */
-.form-field--layout-horizontal {
-  flex-direction: row;
-  align-items: flex-start;
-}
-
-/* Gap between label and control for vertical */
-.form-field--layout-vertical.form-field--gap-sm
-  .form-field__label {
+/* Gap between label and control */
+.form-field--gap-sm .form-field__label {
   margin-bottom: 4px;
 }
 
-.form-field--layout-vertical.form-field--gap-md
-  .c-form-field__label {
+.form-field--gap-md .form-field__label {
   margin-bottom: 8px;
 }
 
-.form-field--layout-vertical.form-field--gap-lg
-  .form-field__label {
+.form-field--gap-lg .form-field__label {
   margin-bottom: 12px;
-}
-
-/* Horizontal layout spacing */
-.form-field--layout-horizontal .form-field__label {
-  width: 140px;
-  padding-top: 6px;
-  margin-right: 12px;
-}
-
-.form-field--layout-horizontal.form-field--gap-sm
-  .form-field__label {
-  margin-right: 8px;
-}
-
-.form-field--layout-horizontal.form-field--gap-lg
-  .form-field__label {
-  margin-right: 16px;
 }
 
 /* Label */

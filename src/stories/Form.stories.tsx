@@ -27,7 +27,7 @@ const meta = {
   argTypes: {
     layout: {
       control: { type: "select" },
-      options: ["vertical", "horizontal"]
+      options: ["vertical"]
     },
     gap: {
       control: { type: "select" },
@@ -147,7 +147,7 @@ export const Playground: Story = {
   render: (args) => (
     <div style={{ maxWidth: 520 }}>
       <Template
-        layout={args.layout || 'horizontal'}
+        layout={args.layout || 'vertical'}
         gap={args.gap || 'md'}
       />
     </div>

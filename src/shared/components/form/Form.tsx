@@ -2,7 +2,7 @@ import React, { createContext, useContext } from "react";
 import classNames from "classnames";
 import styles from "./form.module.css";
 
-export type FormLayout = "vertical" | "horizontal";
+export type FormLayout = "vertical";
 export type FormGap = "sm" | "md" | "lg";
 
 type FormContextValue = {
