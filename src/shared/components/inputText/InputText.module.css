@@ -4,10 +4,10 @@
   box-sizing: border-box;
 
   border-radius: 6px;
-  border: 1px solid #d0d5dd;
+  border: 1px solid var(--color-input-border);
 
-  background-color: #ffffff;
-  color: #111827;
+  background-color: var(--color-input-background);
+  color: var(--color-input-text);
 
   font-size: 0.875rem;
   line-height: 1.4;
@@ -40,21 +40,26 @@
 /* Focus */
 .input:focus {
   outline: none;
-  border-color: #2563eb;
+  border-color: var(--color-input-border-focus);
 }
 
 /* Error */
 .input--error {
-  border-color: #dc2626;
+  border-color: var(--color-error);
 }
 
 .input--error:focus {
-  border-color: #b91c1c;
+  border-color: var(--color-error-hover);
 }
 
 /* Disabled */
 .input:disabled {
-  background-color: #f9fafb;
-  color: #9ca3af;
+  background-color: var(--color-input-disabled-background);
+  color: var(--color-input-disabled-text);
   cursor: not-allowed;
+}
+
+/* Placeholder */
+.input::placeholder {
+  color: var(--color-input-placeholder);
 }
