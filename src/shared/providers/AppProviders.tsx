@@ -2,6 +2,7 @@
 
 import { PropsWithChildren } from "react";
 import { ToastProvider } from "../components/toast/Toast";
+import { ThemeProvider } from "./theme";
 
 export function AppProviders(props: PropsWithChildren) {
   const {
@@ -9,8 +10,10 @@ export function AppProviders(props: PropsWithChildren) {
   } = props;
 
   return (
-    <ToastProvider>
-      {children}
-    </ToastProvider>
+    <ThemeProvider>
+      <ToastProvider>
+        {children}
+      </ToastProvider>
+    </ThemeProvider>
   );
 }
