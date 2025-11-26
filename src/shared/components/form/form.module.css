@@ -1,0 +1,116 @@
+/* Base */
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form--layout-horizontal {
+  /* overall form is still column – horizontal layout is per-field */
+}
+
+/* Gap between fields */
+.form--gap-sm > .form-field {
+  margin-bottom: 8px;
+}
+
+.form--gap-md > .form-field {
+  margin-bottom: 16px;
+}
+
+.form--gap-lg > .form-field {
+  margin-bottom: 24px;
+}
+
+.form--gap-sm > .form-field:last-child,
+.form--gap-md > .form-field:last-child,
+.form--gap-lg > .form-field:last-child {
+  margin-bottom: 0;
+}
+
+/* -------- FormField -------- */
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Layout: vertical (label above control) */
+.form-field--layout-vertical {
+  align-items: stretch;
+}
+
+/* Layout: horizontal (label left, control right) */
+.form-field--layout-horizontal {
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+/* Gap between label and control for vertical */
+.form-field--layout-vertical.form-field--gap-sm
+  .form-field__label {
+  margin-bottom: 4px;
+}
+
+.form-field--layout-vertical.form-field--gap-md
+  .c-form-field__label {
+  margin-bottom: 8px;
+}
+
+.form-field--layout-vertical.form-field--gap-lg
+  .form-field__label {
+  margin-bottom: 12px;
+}
+
+/* Horizontal layout spacing */
+.form-field--layout-horizontal .form-field__label {
+  width: 140px;
+  padding-top: 6px;
+  margin-right: 12px;
+}
+
+.form-field--layout-horizontal.form-field--gap-sm
+  .form-field__label {
+  margin-right: 8px;
+}
+
+.form-field--layout-horizontal.form-field--gap-lg
+  .form-field__label {
+  margin-right: 16px;
+}
+
+/* Label */
+.form-field__label {
+  font-size: 14px;
+  color: #374151;
+  display: inline-flex;
+  align-items: center;
+}
+
+.form-field__label-text {
+  margin-bottom: 4px;
+  margin-right: 4px;
+}
+
+.form-field__required {
+  color: #ef4444;
+  font-size: 14px;
+}
+
+/* Control container */
+.form-field__control {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Helper / error text */
+.form-field__help {
+  margin-top: 4px;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.form-field__error {
+  margin-top: 4px;
+  font-size: 12px;
+  color: #ef4444;
+}
