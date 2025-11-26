@@ -64,6 +64,7 @@ export function Select(props: SelectProps) {
   const [searchTerm, setSearchTerm] = useState(INITIAL_VALUES.SEARCH_TERM);
   const [highlightedIndex, setHighlightedIndex] = useState(INITIAL_VALUES.HIGHLIGHTED_INDEX);
   const [isKeyboardNav, setIsKeyboardNav] = useState(INITIAL_VALUES.KEYBOARD_NAV);
+  const [dropdownPosition, setDropdownPosition] = useState<'bottom' | 'top'>('bottom');
   const selectedOption = getSelectedOption({ options, value: value ?? '' });
   const filteredOptions = getFilteredOptions({
     options,
@@ -83,9 +84,28 @@ export function Select(props: SelectProps) {
       [styles[`${baseClassName}--open`]]: isOptionsOpen,
       [styles[`${baseClassName}--disabled`]]: disabled,
       [styles[`${baseClassName}--error`]]: hasError,
+      [styles[`${baseClassName}--dropdown-top`]]: dropdownPosition === 'top',
     },
     className
   );
+
+  // Calculate dropdown position
+  useEffect(() => {
+    if (!isOptionsOpen || !containerRef.current) return;
+
+    const container = containerRef.current;
+    const rect = container.getBoundingClientRect();
+    const viewportHeight = window.innerHeight;
+    const spaceBelow = viewportHeight - rect.bottom;
+    const spaceAbove = rect.top;
+    const dropdownHeight = 220;
+
+    if (spaceBelow < dropdownHeight && spaceAbove > spaceBelow) {
+      setDropdownPosition('top');
+    } else {
+      setDropdownPosition('bottom');
+    }
+  }, [isOptionsOpen]);
 
   // Close dropdown on outside click
   useEffect(() => {

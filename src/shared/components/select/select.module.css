@@ -79,7 +79,7 @@
   color: #bfbfbf;
 }
 
-/* Input (search mode) - Override InputText styles when used in Select2 */
+/* Input (search mode) */
 .select__value-wrapper input {
   border: none;
   outline: none;
@@ -159,9 +159,14 @@
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-  max-height: 260px;
+  max-height: 200px;
   overflow-y: auto;
   box-sizing: border-box;
+}
+
+.select--dropdown-top .select__dropdown {
+  top: auto;
+  bottom: calc(100% + 4px);
 }
 
 /* Option */
