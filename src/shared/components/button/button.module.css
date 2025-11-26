@@ -38,40 +38,41 @@
 
 /* Variants */
 .button--primary {
-  background-color: #2563eb;
-  color: #ffffff;
+  background-color: var(--color-primary);
+  color: var(--color-primary-text);
 }
 
 .button--primary:not(.button--disabled):not(.button--loading):hover {
-  background-color: #1d4ed8;
+  background-color: var(--color-primary-hover);
 }
 
 .button--secondary {
-  background-color: #e5e7eb;
-  color: #111827;
+  background-color: var(--color-secondary);
+  color: var(--color-secondary-text);
 }
 
 .button--secondary:not(.button--disabled):not(.button--loading):hover {
-  background-color: #d1d5db;
+  background-color: var(--color-secondary-hover);
 }
 
 .button--outline {
   background-color: transparent;
-  border-color: #d1d5db;
-  color: #111827;
+  border-color: var(--color-border);
+  color: var(--color-text-primary);
 }
 
 .button--outline:not(.button--disabled):not(.button--loading):hover {
-  background-color: #f3f4f6;
+  background-color: var(--color-border);
+  border-color: var(--color-border-hover);
 }
 
 .button--danger {
-  background-color: #dc2626;
-  color: #ffffff;
+  background-color: var(--color-danger);
+  color: var(--color-danger-text);
 }
 
 .button--danger:not(.button--disabled):not(.button--loading):hover {
-  background-color: #b91c1c;
+  background-color: var(--color-danger-hover);
 }
 
 /* Disabled */
