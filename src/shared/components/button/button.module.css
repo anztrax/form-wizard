@@ -8,7 +8,7 @@
   font-weight: 500;
   cursor: pointer;
 
-  border-radius: 6px;
+  border-radius: var(--radius-md);
   border: 1px solid transparent;
 
   user-select: none;
@@ -17,18 +17,18 @@
 
 /* Sizes */
 .button--sm {
-  padding: 6px 12px;
-  font-size: 0.75rem;
+  padding: var(--button-padding-sm);
+  font-size: var(--font-size-xs);
 }
 
 .button--md {
-  padding: 8px 16px;
-  font-size: 0.875rem;
+  padding: var(--button-padding-md);
+  font-size: var(--font-size-sm);
 }
 
 .button--lg {
-  padding: 12px 20px;
-  font-size: 1rem;
+  padding: var(--button-padding-lg);
+  font-size: var(--font-size-md);
 }
 
 /* Full width */
