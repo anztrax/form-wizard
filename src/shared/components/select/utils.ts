@@ -58,25 +58,14 @@ export const findNextValidIndex = (
     while (nextIndex < filteredOptions.length && isOptionDisabled(filteredOptions, nextIndex)) {
       nextIndex++;
     }
-    console.log(
-      'down index : ',
-      nextIndex < filteredOptions.length ? nextIndex : currentIndex,
-      ' filtered options: ',
-      filteredOptions.length
-    );
     return nextIndex < filteredOptions.length ? nextIndex : currentIndex;
   }
+
   if (direction === 'up') {
     nextIndex = currentIndex - 1;
     while (nextIndex >= 0 && isOptionDisabled(filteredOptions, nextIndex)) {
       nextIndex--;
     }
-    console.log(
-      'up index : ',
-      nextIndex >= 0 ? nextIndex : currentIndex,
-      ' filtered options: ',
-      filteredOptions.length
-    );
     return nextIndex >= 0 ? nextIndex : currentIndex;
   }
 

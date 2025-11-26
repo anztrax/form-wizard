@@ -245,6 +245,13 @@ export function Select(props: SelectProps) {
     if (isKeyboardNav || isScrollingRef.current) {
       return;
     }
+
+    // handle don't change highlight index when option disabled
+    const option = filteredOptions[index];
+    if (option?.disabled) {
+      return;
+    }
+
     setHighlightedIndex(index);
   };
 
