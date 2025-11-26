@@ -2,6 +2,7 @@
 
 import React from "react";
 import styles from "./textarea.module.css";
+import classNames from "classnames";
 
 type TextareaSize = "sm" | "md" | "lg";
 
@@ -20,15 +21,15 @@ export function Textarea(props: TextareaProps) {
     ...rest
   } = props;
 
-  const classes = [
+  const classes = classNames(
     styles["textarea"],
     styles[`textarea--${size}`],
-    hasError ? styles["textarea--error"] : "",
-    fullWidth ? styles["textarea--full-width"] : "",
-    className,
-  ]
-    .filter(Boolean)
-    .join(" ");
+    {
+      [styles["textarea--error"]]: hasError,
+      [styles["textarea--full-width"]]: fullWidth,
+    },
+    className
+  );
 
   return <textarea className={classes} {...rest} />;
 }
