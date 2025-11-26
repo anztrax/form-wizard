@@ -1,17 +1,19 @@
+"use client";
+
 import {
   PropsWithChildren,
 } from "react";
 import classNames from "classnames";
 import { ToastContext } from "./ToastContext";
 import { useToastManager } from "./useToastManager";
-import styles from "./Toast.module.css";
+import styles from "./toast.module.css";
 
 export type {
   ToastType,
   ToastItem,
+
   ShowToastOptions
 } from './ToastContext';
-
 export { useToast } from "./useToast";
 export interface ToastProviderProps {
   defaultDurationInMs?: number;
