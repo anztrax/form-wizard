@@ -1,7 +1,8 @@
 "use client";
 
-import React from "react";
+import React, { forwardRef } from "react";
 import styles from "./InputText.module.css";
+import classNames from "classnames";
 
 type InputTextSize = "sm" | "md" | "lg";
 
@@ -11,30 +12,32 @@ export type InputTextProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, '
   fullWidth?: boolean;
 }
 
-export function InputText(props: InputTextProps) {
+export const InputText = forwardRef<HTMLInputElement, InputTextProps>((props, ref) => {
   const {
     size = "md",
     hasError = false,
     fullWidth = false,
-    className,
+    className = '',
     type = "text",
     ...rest
   } = props;
 
-  const classes = [
+  const classes = classNames(
     styles["input"],
     styles[`input--${size}`],
-    hasError ? styles["input--error"] : "",
-    fullWidth ? styles["input--full-width"] : "",
+    {
+      [styles["input--error"]]: hasError,
+      [styles["input--full-width"]]: fullWidth,
+    },
     className,
-  ].filter(Boolean)
-    .join(" ");
+  );
 
   return (
     <input
+      ref={ref}
       type={type}
       className={classes}
       {...rest}
     />
   );
-}
+});
