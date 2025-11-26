@@ -2,6 +2,7 @@
 
 import React from "react";
 import styles from "./button.module.css";
+import classNames from "classnames";
 
 type ButtonVariant =
   | "primary"
@@ -29,16 +30,16 @@ export function Button(props: ButtonProps) {
     ...rest
   } = props;
 
-  const classes = [
+  const classes = classNames(
     styles["button"],
     styles[`button--${variant}`],
     styles[`button--${size}`],
-    fullWidth ? styles["button--full-width"] : "",
-    disabled ? styles["button--disabled"] : "",
-    className,
-  ]
-    .filter(Boolean)
-    .join(" ");
+    {
+      [styles["button--full-width"]]: fullWidth,
+      [styles["button--disabled"]]: disabled,
+    },
+    className
+  );
 
   return (
     <button
