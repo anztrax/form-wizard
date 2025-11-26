@@ -15,7 +15,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj;
 
-const ToastDemo: React.FC = () => {
+const ToastDemo = () => {
   const { showToast } = useToast();
 
   return (
@@ -79,7 +79,7 @@ const ToastDemo: React.FC = () => {
   );
 };
 
-const ToastDemoWithProvider: React.FC = () => (
+const ToastDemoWithProvider = () => (
   <ToastProvider>
     <ToastDemo />
   </ToastProvider>

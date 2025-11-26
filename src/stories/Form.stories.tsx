@@ -57,10 +57,11 @@ const countryOptions = [
   { value: 'jp', label: 'Japan' },
 ];
 
-const Template: React.FC<{
-  layout: FormLayout;
-  gap: FormGap;
-}> = ({ layout, gap }) => {
+function Template(props: { layout: FormLayout, gap: FormGap }) {
+  const {
+    layout,
+    gap
+  } = props;
   const {
     register,
     handleSubmit,
