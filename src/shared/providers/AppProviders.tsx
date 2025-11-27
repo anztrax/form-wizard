@@ -4,6 +4,7 @@ import { PropsWithChildren } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ToastProvider } from "../components/toast/Toast";
 import { ThemeProvider } from "./theme";
+import { LoadingModalProvider } from "../components/modal";
 
 export function AppProviders(props: PropsWithChildren) {
   const {
@@ -23,7 +24,9 @@ export function AppProviders(props: PropsWithChildren) {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
         <ToastProvider>
-          {children}
+          <LoadingModalProvider>
+            {children}
+          </LoadingModalProvider>
         </ToastProvider>
       </ThemeProvider>
     </QueryClientProvider>
