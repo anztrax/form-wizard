@@ -19,7 +19,8 @@ export type SelectProps = {
   loading?: boolean;
 
   allowClear?: boolean;
-  errorMessage?: string;
+  hasError?: boolean;
+  fullWidth?: boolean;
   label?: string;
 
   size?: SelectSize;
@@ -48,7 +49,8 @@ export function Select(props: SelectProps) {
     showSearch = false,
     loading = false,
     allowClear = true,
-    errorMessage,
+    hasError = false,
+    fullWidth = false,
     label,
     size = "md",
     className = "",
@@ -72,7 +74,6 @@ export function Select(props: SelectProps) {
     showSearch,
   });
   const displayLabel = selectedOption?.label ?? "";
-  const hasError = Boolean(errorMessage);
   const isFilterOptionsEmpty = filteredOptions.length === 0;
   const showNoOptionsMessage = isFilterOptionsEmpty && !loading;
   const showClearButton = allowClear && selectedOption && !disabled && !loading;
@@ -84,6 +85,7 @@ export function Select(props: SelectProps) {
       [styles[`${baseClassName}--open`]]: isOptionsOpen,
       [styles[`${baseClassName}--disabled`]]: disabled,
       [styles[`${baseClassName}--error`]]: hasError,
+      [styles[`${baseClassName}--full-width`]]: fullWidth,
       [styles[`${baseClassName}--dropdown-top`]]: dropdownPosition === 'top',
     },
     className
@@ -430,10 +432,6 @@ export function Select(props: SelectProps) {
           </div>
         )}
       </div>
-
-      {hasError && (
-        <div className={styles[`${baseClassName}__error-message`]}>{errorMessage}</div>
-      )}
     </div>
   );
 };

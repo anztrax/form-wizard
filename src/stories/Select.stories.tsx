@@ -111,7 +111,7 @@ export const WithError: Story = {
     options: baseOptions,
     placeholder: "Select a fruit",
     showSearch: false,
-    errorMessage: "This field is required",
+    hasError: true,
     label: "Fruit",
   },
   render: (args) => {

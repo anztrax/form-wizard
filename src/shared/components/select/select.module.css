@@ -6,6 +6,10 @@
   min-width: 220px;
 }
 
+.select--full-width {
+  width: 100%;
+}
+
 .select__label {
   font-size: var(--font-size-xs);
   margin-bottom: var(--spacing-1);
@@ -225,10 +229,4 @@
 /* Error state */
 .select--error .select__control {
   border-color: var(--color-error);
-}
-
-.select__error-message {
-  color: var(--color-error);
-  font-size: var(--font-size-xs);
-  margin-top: var(--spacing-1);
 }
