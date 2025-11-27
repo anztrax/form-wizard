@@ -5,6 +5,7 @@ import styles from "./imageUpload.module.css";
 import classNames from "classnames";
 import { Button } from "../button/Button";
 import { formatBytesToMB } from "./utils";
+import { InputText } from "../inputText/InputText";
 
 export type ImageUploadProps = {
   value?: File | string | null;
@@ -46,6 +47,7 @@ const acceptedImageTypes: AcceptedImageTypes = [
 ];
 
 const ACCEPTED_IMAGE_TYPES_EXTENSIONS = acceptedImageTypes.flatMap((item) => item.extensions);
+const ACCEPTED_IMAGE_TYPES_EXTENSIONS_STR = ACCEPTED_IMAGE_TYPES_EXTENSIONS.join(", ");
 const ACCEPTED_IMAGE_TYPES_NAME = acceptedImageTypes.map((item) => item.name).join(", ");
 
 const DEFAULT_MAX_SIZE_IN_BYTES = 5 * 1024 * 1024;
@@ -60,7 +62,7 @@ export function ImageUpload(props: ImageUploadProps) {
     disabled = false,
     className,
     previewClassName,
-    accept = "image/*",
+    accept = ACCEPTED_IMAGE_TYPES_EXTENSIONS_STR,
     id = "image-upload",
     hasError: externalHasError = false,
     fullWidth = false,
@@ -156,7 +158,7 @@ export function ImageUpload(props: ImageUploadProps) {
 
   return (
     <div className={containerClasses}>
-      <input
+      <InputText
         ref={inputRef}
         id={id}
         type="file"
