@@ -11,6 +11,7 @@ export function FormWizardLayout() {
     currentStep,
     formStepIndex,
     isLastStepIndex,
+    isFormSubmitting,
 
     onSubmitForm,
     onNextButtonClick,
@@ -49,11 +50,15 @@ export function FormWizardLayout() {
                 type="button"
                 variant="danger"
                 onClick={onClearDraftAndReset}
+                disabled={isFormSubmitting}
               >
                 Clear Draft & Reset
               </Button>
-              <Button type="submit">
-                Submit
+              <Button
+                type="submit"
+                disabled={isFormSubmitting}
+              >
+                {isFormSubmitting ? "Submitting..." : "Submit"}
               </Button>
             </div>
           )}
