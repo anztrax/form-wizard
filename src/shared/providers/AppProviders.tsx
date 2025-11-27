@@ -3,7 +3,6 @@
 import { PropsWithChildren } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ToastProvider } from "../components/toast/Toast";
-import { ThemeProvider } from "./theme";
 import { LoadingModalProvider } from "../components/modal";
 
 export function AppProviders(props: PropsWithChildren) {
@@ -22,13 +21,11 @@ export function AppProviders(props: PropsWithChildren) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider>
-        <ToastProvider>
-          <LoadingModalProvider>
-            {children}
-          </LoadingModalProvider>
-        </ToastProvider>
-      </ThemeProvider>
+      <ToastProvider>
+        <LoadingModalProvider>
+          {children}
+        </LoadingModalProvider>
+      </ToastProvider>
     </QueryClientProvider>
   );
 }
