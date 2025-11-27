@@ -1,0 +1,17 @@
+
+html {
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+}
+
+
+/* Base Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
