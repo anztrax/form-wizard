@@ -24,7 +24,6 @@ export type SelectProps = {
 
   size?: SelectSize;
   className?: string;
-  name?: string;
 
   onChange?: (value: string | null, option?: SelectOption | null) => void;
   onInputChange?: (keyword: string) => void;
@@ -52,7 +51,6 @@ export function Select(props: SelectProps) {
     fullWidth = false,
     size = "md",
     className = "",
-    name,
   } = props;
 
   const containerRef = useRef<HTMLDivElement | null>(null);
