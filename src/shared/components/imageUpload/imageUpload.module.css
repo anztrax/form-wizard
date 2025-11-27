@@ -1,0 +1,131 @@
+.upload {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  width: 100%;
+}
+
+.upload__label {
+  display: block;
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-1);
+}
+
+.upload__required {
+  color: var(--color-error);
+  margin-left: var(--spacing-1);
+}
+
+.upload__input {
+  display: none;
+}
+
+/* Upload Button Area */
+.upload__dropzone {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-8);
+  border: 1px solid var(--color-input-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-input-background);
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+  min-height: 160px;
+}
+
+.upload__dropzone:hover:not(.upload--disabled .upload__dropzone) {
+  border-color: var(--color-input-border-focus);
+}
+
+.upload__dropzone:focus {
+  outline: none;
+  border-color: var(--color-input-border-focus);
+}
+
+.upload--disabled .upload__dropzone {
+  cursor: not-allowed;
+  opacity: 0.6;
+  background-color: var(--color-input-disabled-background);
+}
+
+.upload--error .upload__dropzone {
+  border-color: var(--color-error);
+}
+
+.upload__text {
+  text-align: center;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+.upload__text-primary {
+  font-weight: 600;
+}
+
+.upload__text-secondary {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  margin-top: var(--spacing-1);
+}
+
+/* Preview */
+.upload__preview {
+  position: relative;
+  width: 100%;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--color-input-border);
+  background-color: var(--color-input-background);
+  aspect-ratio: 16 / 9;
+  max-height: 400px;
+}
+
+.upload__preview-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  background-color: var(--color-background);
+}
+
+.upload__preview-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-3);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.upload__preview:hover .upload__preview-overlay {
+  opacity: 1;
+}
+
+.upload--disabled .upload__preview-overlay {
+  display: none;
+}
+
+/* Helper & Error Text */
+.upload__helper {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+.upload__error {
+  font-size: var(--font-size-xs);
+  color: var(--color-error);
+  margin: 0;
+}
