@@ -1,5 +1,9 @@
 import { SelectOption } from "./types";
 
+export const getValuesFromOptions = (options: SelectOption[]): Array<SelectOption['value']> => {
+  return options.map((opt) => opt.value);
+}
+
 export const getSelectedOption = (params: {
   value: SelectOption['value']
   options: SelectOption[],

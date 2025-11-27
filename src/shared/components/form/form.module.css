@@ -5,21 +5,21 @@
 }
 
 /* Gap between fields */
-.form--gap-sm > .form-field {
+.form--gap-sm>.form-field {
   margin-bottom: var(--form-field-gap-sm);
 }
 
-.form--gap-md > .form-field {
+.form--gap-md>.form-field {
   margin-bottom: var(--form-field-gap-md);
 }
 
-.form--gap-lg > .form-field {
+.form--gap-lg>.form-field {
   margin-bottom: var(--form-field-gap-lg);
 }
 
-.form--gap-sm > .form-field:last-child,
-.form--gap-md > .form-field:last-child,
-.form--gap-lg > .form-field:last-child {
+.form--gap-sm>.form-field:last-child,
+.form--gap-md>.form-field:last-child,
+.form--gap-lg>.form-field:last-child {
   margin-bottom: 0;
 }
 
@@ -28,6 +28,7 @@
   display: flex;
   flex-direction: column;
   align-items: stretch;
+  margin-bottom: var(--spacing-4);
 }
 
 /* Gap between label and control */
