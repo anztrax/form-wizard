@@ -114,7 +114,8 @@ export default function BasicInfoForm() {
               showSearch
               loading={departmentLoading}
               allowClear
-              errorMessage={errors?.department?.message}
+              hasError={Boolean(errors?.department)}
+              fullWidth
             />
           )}
         />
@@ -136,7 +137,8 @@ export default function BasicInfoForm() {
               onChange={(value) => field.onChange(value)}
               placeholder="Select a role..."
               allowClear
-              errorMessage={errors.role?.message}
+              hasError={Boolean(errors.role)}
+              fullWidth
             />
           )}
         />

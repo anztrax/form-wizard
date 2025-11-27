@@ -82,7 +82,8 @@ export default function DetailInfoForm() {
               onChange={(value) => field.onChange(value)}
               placeholder="Select employment type..."
               allowClear
-              errorMessage={errors.employmentType?.message}
+              hasError={Boolean(errors.employmentType)}
+              fullWidth
             />
           )}
         />
@@ -107,7 +108,8 @@ export default function DetailInfoForm() {
               showSearch
               loading={locationLoading}
               allowClear
-              errorMessage={errors.location?.message}
+              hasError={Boolean(errors.location)}
+              fullWidth
             />
           )}
         />
