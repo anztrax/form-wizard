@@ -7,7 +7,7 @@ import { useState } from "react";
 import { EmployeeFormSchema, EmployeeFormValues } from "../schema";
 import { adminSteps, opsSteps } from "../employeeWizardSteps";
 import { useFormDraftPersistence } from "./useFormDraftPersistence";
-import { useSubmitBasicInfo, useSubmitDetails } from "./useSubmitForm";
+import { useSubmitBasicInfo, useSubmitDetails } from "../../shared/hooks/useSubmitForm";
 import { useToast } from "@/shared/components/toast/useToast";
 import { useLoadingModal } from "@/shared/components/modal";
 

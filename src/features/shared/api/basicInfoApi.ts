@@ -9,16 +9,49 @@ export type BasicInfo = {
   employeeId: string;
 };
 
-export async function fetchBasicInfo(): Promise<BasicInfo[]> {
+export type PaginationParams = {
+  _page?: number;
+  _limit?: number;
+};
+
+export type PaginatedResponse<T> = {
+  data: T[];
+  total: number;
+  page: number;
+  limit: number;
+  totalPages: number;
+};
+
+export async function fetchBasicInfo(params?: PaginationParams): Promise<PaginatedResponse<BasicInfo>> {
   try {
-    const response = await fetch(`${API_BASE_URL}/basicInfo`);
+    const searchParams = new URLSearchParams();
+    if (params?._page) {
+      searchParams.append('_page', params._page.toString());
+    }
+    if (params?._limit) {
+      searchParams.append('_limit', params._limit.toString());
+    }
+
+    const url = `${API_BASE_URL}/basicInfo${searchParams.toString() ? `?${searchParams.toString()}` : ''}`;
+    const response = await fetch(url);
 
     if (!response.ok) {
       throw new Error(`Failed to fetch basic info: ${response.statusText}`);
     }
 
     const data: BasicInfo[] = await response.json();
-    return data;
+    const totalCount = response.headers.get('X-Total-Count');
+    const total = totalCount ? parseInt(totalCount) : data.length;
+    const page = params?._page || 1;
+    const limit = params?._limit || total;
+
+    return {
+      data,
+      total,
+      page,
+      limit,
+      totalPages: Math.ceil(total / limit),
+    };
   } catch (error) {
     console.error("Error fetching basic info:", error);
     throw error;

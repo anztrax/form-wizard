@@ -8,7 +8,7 @@ import { Textarea } from "@/shared/components/textarea/Textarea";
 import { ImageUpload } from "@/shared/components/imageUpload/ImageUpload";
 import { employmentTypeSelectOptions } from "../resources";
 import { Step2Schema } from "../schema";
-import { useLocations } from "../hooks/useLocations";
+import { useLocations } from "../../shared/hooks/useLocations";
 import { useDebounce } from "@/shared/hooks/useDebounce";
 import z from "zod";
 import { convertFiletoBase64 } from "@/shared/utils/utils";
