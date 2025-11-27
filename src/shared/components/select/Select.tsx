@@ -21,7 +21,6 @@ export type SelectProps = {
   allowClear?: boolean;
   hasError?: boolean;
   fullWidth?: boolean;
-  label?: string;
 
   size?: SelectSize;
   className?: string;
@@ -51,7 +50,6 @@ export function Select(props: SelectProps) {
     allowClear = true,
     hasError = false,
     fullWidth = false,
-    label,
     size = "md",
     className = "",
     name,
@@ -336,15 +334,6 @@ export function Select(props: SelectProps) {
 
   return (
     <div className={rootClassNames} ref={containerRef}>
-      {label && (
-        <label className={styles[`${baseClassName}__label`]}>
-          {label}
-          {name && (
-            <span className={styles[`${baseClassName}__label-name`]}> ({name})</span>
-          )}
-        </label>
-      )}
-
       <div
         className={styles[`${baseClassName}__control`]}
         onClick={handleToggle}

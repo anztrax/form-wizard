@@ -65,7 +65,6 @@ export const Basic: Story = {
           {...args}
           value={value}
           onChange={(val) => setValue(val)}
-          label="Fruit"
         />
       </div>
     );
@@ -89,7 +88,6 @@ export const WithSearch: Story = {
           {...args}
           value={value}
           onChange={(val) => setValue(val)}
-          label="Searchable Select"
         />
       </div>
     );
@@ -102,7 +100,6 @@ export const Disabled: Story = {
     value: "apple",
     showSearch: false,
     disabled: true,
-    label: "Disabled",
   },
 };
 
@@ -112,7 +109,6 @@ export const WithError: Story = {
     placeholder: "Select a fruit",
     showSearch: false,
     hasError: true,
-    label: "Fruit",
   },
   render: (args) => {
     const [value, setValue] = React.useState<string | null>(null);
@@ -135,7 +131,6 @@ export const LoadingState: Story = {
     placeholder: "Loading options...",
     showSearch: true,
     loading: true,
-    label: "Async Select",
   },
 };
 

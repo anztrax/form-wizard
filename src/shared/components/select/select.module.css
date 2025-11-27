@@ -10,17 +10,6 @@
   width: 100%;
 }
 
-.select__label {
-  font-size: var(--font-size-xs);
-  margin-bottom: var(--spacing-1);
-  color: var(--color-text-secondary);
-}
-
-.select__label-name {
-  font-size: var(--font-size-xs);
-  color: var(--color-text-muted);
-}
-
 /* Sizes */
 .select--size-sm .select__control {
   min-height: 28px;
