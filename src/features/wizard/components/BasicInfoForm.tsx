@@ -38,6 +38,10 @@ export default function BasicInfoForm() {
   const employeeIdValue = watch("employeeId");
 
   useEffect(() => {
+    if (!selectedDepartment || !selectedRole || departments.length === 0) {
+      return;
+    }
+
     const employeeId = generateEmployeeId(
       selectedDepartment,
       selectedRole,
@@ -51,7 +55,12 @@ export default function BasicInfoForm() {
         shouldValidate: true,
       })
     }
-  }, [selectedDepartment, selectedRole, existingCount, departments]);
+  }, [
+    selectedDepartment,
+    selectedRole,
+    existingCount,
+    departments.length
+  ]);
 
   return (
     <div>
@@ -142,7 +151,7 @@ export default function BasicInfoForm() {
           placeholder="ENG-001"
           fullWidth
           disabled
-          value={employeeIdValue}
+          value={employeeIdValue || ""}
         />
       </FormField>
     </div>
