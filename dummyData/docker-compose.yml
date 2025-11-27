@@ -3,7 +3,7 @@ services:
   api-step1:
     build: .
     container_name: server-api-step1
-    command: json-server --watch db-step1.json --port 4001
+    command: json-server --watch db-step1.json --port 4001 --host 0.0.0.0
     ports:
       - "4001:4001"
     volumes:
@@ -12,7 +12,7 @@ services:
   api-step2:
     build: .
     container_name: server-api-step2
-    command: json-server --watch db-step2.json --port 4002
+    command: json-server --watch db-step2.json --port 4002 --host 0.0.0.0
     ports:
       - "4002:4002"
     volumes:
