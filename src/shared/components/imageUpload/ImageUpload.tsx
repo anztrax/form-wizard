@@ -17,6 +17,8 @@ export type ImageUploadProps = {
   previewClassName?: string;
   accept?: string;
   id?: string;
+  hasError?: boolean;
+  fullWidth?: boolean;
 };
 
 export type AcceptedImageTypes = {
@@ -60,6 +62,8 @@ export function ImageUpload(props: ImageUploadProps) {
     previewClassName,
     accept = "image/*",
     id = "image-upload",
+    hasError: externalHasError = false,
+    fullWidth = false,
   } = props;
 
   const inputRef = useRef<HTMLInputElement>(null);
@@ -132,13 +136,15 @@ export function ImageUpload(props: ImageUploadProps) {
     onChange?.(null);
   };
 
-  const hasError = !!internalError;
+  const hasInternalError = Boolean(internalError);
+  const hasError = hasInternalError || Boolean(externalHasError);
 
   const containerClasses = classNames(
     styles["upload"],
     {
       [styles["upload--disabled"]]: disabled,
       [styles["upload--error"]]: hasError,
+      [styles["upload--full-width"]]: fullWidth,
     },
     className
   );
@@ -220,7 +226,7 @@ export function ImageUpload(props: ImageUploadProps) {
         </p>
       )}
 
-      {hasError && (
+      {hasInternalError && (
         <p className={styles["upload__error"]} role="alert">
           ❌ {internalError}
         </p>

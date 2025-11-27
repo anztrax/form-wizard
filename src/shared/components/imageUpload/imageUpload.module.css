@@ -5,6 +5,10 @@
   width: 100%;
 }
 
+.upload--full-width {
+  width: 100%;
+}
+
 .upload__input {
   display: none;
 }
