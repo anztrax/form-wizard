@@ -1,7 +1,6 @@
-// src/stories/Modal.stories.tsx
 import type { Meta, StoryObj } from "@storybook/react";
 import { useState } from "react";
-import { Modal } from "@/shared/components/modal/Modal";
+import { Modal } from "@/shared/components/modal";
 import { Button } from "@/shared/components/button/Button";
 
 const meta: Meta<typeof Modal> = {
