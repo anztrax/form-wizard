@@ -38,7 +38,6 @@ export const isOptionDisabled = (filteredOptions: SelectOption[], index: number)
   return !filteredOptions[index] || filteredOptions[index]?.disabled;
 };
 
-// Check whether the highlighted index is valid (exists and not disabled)
 export const isValidHighlightedIndex = (
   filteredOptions: SelectOption[],
   highlightedIndex: number

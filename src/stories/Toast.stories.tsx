@@ -1,6 +1,4 @@
-// src/stories/Toast.stories.tsx
 import type { Meta, StoryObj } from "@storybook/react";
-import React from "react";
 import {
   ToastProvider,
   useToast,
