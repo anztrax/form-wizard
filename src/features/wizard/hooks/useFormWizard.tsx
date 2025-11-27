@@ -9,6 +9,7 @@ import { adminSteps, opsSteps } from "../employeeWizardSteps";
 import { useFormDraftPersistence } from "./useFormDraftPersistence";
 import { useSubmitBasicInfo, useSubmitDetails } from "./useSubmitForm";
 import { useToast } from "@/shared/components/toast/useToast";
+import { useLoadingModal } from "@/shared/components/modal";
 
 const getFormRoleType = (role: string | null): 'admin' | 'ops' => {
   const lowercasedRole = (role ?? 'admin').toLowerCase();
@@ -32,19 +33,19 @@ export const useFormWizard = () => {
     },
     shouldUnregister: false,
   });
+  const { showLoading, hideLoading, isLoading } = useLoadingModal();
+  const { showToast } = useToast();
   const { watch, trigger } = formWizard;
   const roleType = watch("roleType");
 
   const steps = roleType === "admin" ? adminSteps : opsSteps;
 
   const [formStepIndex, setFormStepIndex] = useState(0);
-  const [isFormSubmitting, setIsFormSubmitting] = useState(false);
   const currentStep = steps[formStepIndex];
   const isLastStepIndex = formStepIndex === steps.length - 1;
 
   const submitBasicInfo = useSubmitBasicInfo();
   const submitDetails = useSubmitDetails();
-  const { showToast } = useToast();
 
   const { clearDraftAndReset } = useFormDraftPersistence<EmployeeFormValues>({
     form: formWizard,
@@ -75,11 +76,11 @@ export const useFormWizard = () => {
   };
 
   const onSubmitForm = async (formValues: EmployeeFormValues) => {
-    setIsFormSubmitting(true);
-
+    showLoading("⏳ Submitting form...");
     try {
       if (formValues.roleType === "admin") {
-        console.log("⏳ Submitting basicInfo…");
+        console.log("⏳ Submitting basicInfo...");
+        showLoading("⏳ Submitting basicInfo...");
         await new Promise((resolve) => setTimeout(resolve, 3000));
         await submitBasicInfo.mutateAsync({
           fullName: formValues.fullName,
@@ -90,17 +91,17 @@ export const useFormWizard = () => {
         });
 
         await new Promise((resolve) => setTimeout(resolve, 3000));
-        console.log("⏳ Submitting details…");
+        console.log("⏳ Submitting details...");
+        showLoading("⏳ Submitting details...");
         await submitDetails.mutateAsync({
           photo: formValues.photo,
           employmentType: formValues.employmentType,
           location: formValues.location,
           notes: formValues.notes,
         });
-
-        console.log("🎉 All data processed successfully!");
       } else {
-        console.log("⏳ Submitting details…");
+        console.log("⏳ Submitting details...");
+        showLoading("⏳ Submitting details...");
         await new Promise((resolve) => setTimeout(resolve, 3000));
         await submitDetails.mutateAsync({
           photo: formValues.photo,
@@ -108,9 +109,10 @@ export const useFormWizard = () => {
           location: formValues.location,
           notes: formValues.notes,
         });
-
-        console.log("🎉 All data processed successfully!");
       }
+      console.log("🎉 All data processed successfully!");
+      showLoading("🎉 All data processed successfully!");
+      hideLoading();
       showToast({
         type: "success",
         message: "Form submitted successfully! All data has been processed.",
@@ -118,6 +120,7 @@ export const useFormWizard = () => {
       });
       onClearDraftAndReset();
     } catch (error) {
+      hideLoading();
       console.error("❌ Failed to submit form:", error);
       showToast({
         type: "error",
@@ -125,7 +128,7 @@ export const useFormWizard = () => {
         durationInMs: 5000,
       });
     } finally {
-      setIsFormSubmitting(false);
+      hideLoading();
     }
   };
 
@@ -139,7 +142,7 @@ export const useFormWizard = () => {
     currentStep,
     formStepIndex,
     isLastStepIndex,
-    isFormSubmitting,
+    isFormSubmitting: isLoading,
 
     onSubmitForm,
     onNextButtonClick,
