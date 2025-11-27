@@ -59,8 +59,10 @@ export default function DetailInfoForm() {
               id="photo"
               value={field.value}
               onChange={handlePhotoChange}
-              errorText={errors.photo?.message}
-              helperText="Upload your photo (JPEG, PNG, GIF, WEBP - max 5MB)"
+              maxSizeInBytes={(100 * 1024)}
+              helperText="Upload your photo (JPEG, PNG, GIF, WEBP - max 0.10MB)"
+              hasError={Boolean(errors.photo)}
+              fullWidth
             />
           )}
         />
