@@ -57,13 +57,13 @@
 
 .button--outline {
   background-color: transparent;
-  border-color: var(--color-border);
-  color: var(--color-text-primary);
+  border: 1.5px solid var(--color-primary);
+  color: var(--color-primary);
 }
 
 .button--outline:not(.button--disabled):not(.button--loading):hover {
-  background-color: var(--color-border);
-  border-color: var(--color-border-hover);
+  color: var(--color-primary-hover);
+  border-color: var(--color-primary-hover);
 }
 
 .button--danger {
@@ -83,5 +83,7 @@
 }
 
 .button__content {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
 }
