@@ -53,7 +53,6 @@ export const WithLabel: Story = {
       <div style={{ maxWidth: "600px" }}>
         <ImageUpload
           {...args}
-          label="Profile Picture"
           helperText="Upload a profile picture (PNG, JPG, or GIF)"
           value={file}
           onChange={setFile}
@@ -71,8 +70,6 @@ export const Required: Story = {
       <div style={{ maxWidth: "600px" }}>
         <ImageUpload
           {...args}
-          label="Product Image"
-          required
           helperText="Required field - please upload a product image"
           value={file}
           onChange={setFile}
@@ -90,10 +87,8 @@ export const WithError: Story = {
       <div style={{ maxWidth: "600px" }}>
         <ImageUpload
           {...args}
-          label="Avatar"
           value={file}
           onChange={setFile}
-          errorText="This field is required"
         />
       </div>
     );
@@ -106,7 +101,6 @@ export const Disabled: Story = {
       <div style={{ maxWidth: "600px" }}>
         <ImageUpload
           {...args}
-          label="Disabled Upload"
           helperText="This upload field is disabled"
           disabled
         />
@@ -170,8 +164,6 @@ export const InForm: Story = {
         <div style={{ marginBottom: "24px" }}>
           <ImageUpload
             {...args}
-            label="Profile Picture"
-            required
             value={formData.avatar}
             onChange={(file) => setFormData({ ...formData, avatar: file })}
           />

@@ -11,11 +11,8 @@ export type ImageUploadProps = {
   onChange?: (file: File | null) => void;
   onError?: (error: string) => void;
   maxSizeInBytes?: number;
-  label?: string;
   helperText?: string;
-  errorText?: string;
   disabled?: boolean;
-  required?: boolean;
   className?: string;
   previewClassName?: string;
   accept?: string;
@@ -57,11 +54,8 @@ export function ImageUpload(props: ImageUploadProps) {
     onChange,
     onError,
     maxSizeInBytes = DEFAULT_MAX_SIZE_IN_BYTES,
-    label,
     helperText,
-    errorText,
     disabled = false,
-    required = false,
     className,
     previewClassName,
     accept = "image/*",
@@ -138,8 +132,7 @@ export function ImageUpload(props: ImageUploadProps) {
     onChange?.(null);
   };
 
-  const displayError = errorText || internalError;
-  const hasError = !!displayError;
+  const hasError = !!internalError;
 
   const containerClasses = classNames(
     styles["upload"],
@@ -157,13 +150,6 @@ export function ImageUpload(props: ImageUploadProps) {
 
   return (
     <div className={containerClasses}>
-      {label && (
-        <label htmlFor={id} className={styles["upload__label"]}>
-          {label}
-          {required && <span className={styles["upload__required"]}>*</span>}
-        </label>
-      )}
-
       <input
         ref={inputRef}
         id={id}
@@ -172,15 +158,8 @@ export function ImageUpload(props: ImageUploadProps) {
         onChange={handleInputChange}
         disabled={disabled}
         className={styles["upload__input"]}
-        aria-label={label || "Upload image"}
+        aria-label="Upload image"
         aria-invalid={hasError}
-        aria-describedby={
-          hasError
-            ? `${id}-error`
-            : helperText
-              ? `${id}-helper`
-              : undefined
-        }
       />
 
       {preview ? (
@@ -242,8 +221,8 @@ export function ImageUpload(props: ImageUploadProps) {
       )}
 
       {hasError && (
-        <p id={`${id}-error`} className={styles["upload__error"]} role="alert">
-          {displayError}
+        <p className={styles["upload__error"]} role="alert">
+          ❌ {internalError}
         </p>
       )}
     </div>
