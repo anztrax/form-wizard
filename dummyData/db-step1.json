@@ -15,6 +15,10 @@
     {
       "id": 4,
       "name": "Engineering"
+    },
+    {
+      "id": 5,
+      "name": "Product"
     }
   ],
   "basicInfo": []
