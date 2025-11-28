@@ -29,6 +29,14 @@ COPY . .
 # Uncomment the following line in case you want to disable telemetry during the build.
 # ENV NEXT_TELEMETRY_DISABLED=1
 
+# Build-time arguments for NEXT_PUBLIC_* environment variables
+# These are embedded into the client-side bundle during build
+ARG NEXT_PUBLIC_API_DUMMY_DATA_1_URL
+ARG NEXT_PUBLIC_API_DUMMY_DATA_2_URL
+
+ENV NEXT_PUBLIC_API_DUMMY_DATA_1_URL=$NEXT_PUBLIC_API_DUMMY_DATA_1_URL
+ENV NEXT_PUBLIC_API_DUMMY_DATA_2_URL=$NEXT_PUBLIC_API_DUMMY_DATA_2_URL
+
 RUN \
   if [ -f yarn.lock ]; then yarn run build; \
   elif [ -f package-lock.json ]; then npm run build; \
