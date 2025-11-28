@@ -1,0 +1,9 @@
+const DUMMY_DATA_1_BASE_API_URL = process.env.NEXT_PUBLIC_API_DUMMY_DATA_1_URL || "";
+const DUMMY_DATA_2_BASE_API_URL = process.env.NEXT_PUBLIC_API_DUMMY_DATA_2_URL || "";
+
+export const API_URLS = {
+  BASIC_INFO: `${DUMMY_DATA_1_BASE_API_URL}/basicInfo`,
+  DETAILS: `${DUMMY_DATA_2_BASE_API_URL}/details`,
+  DEPARTMENTS: `${DUMMY_DATA_1_BASE_API_URL}/departments`,
+  LOCATIONS: `${DUMMY_DATA_2_BASE_API_URL}/locations`,
+};

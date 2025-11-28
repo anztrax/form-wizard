@@ -1,7 +1,5 @@
 import { SelectOption } from "@/common/components/select";
-
-const API_BASE_URL = "http://localhost:4001";
-const API_BASE_URL_LOCATIONS = "http://localhost:4002";
+import { API_URLS } from "./API_URLS";
 
 export type Department = {
   id: string;
@@ -17,7 +15,7 @@ export async function fetchDepartments(
   searchQuery?: string
 ): Promise<SelectOption[]> {
   try {
-    const url = new URL(`${API_BASE_URL}/departments`);
+    const url = new URL(`${API_URLS.DEPARTMENTS}`);
 
     if (searchQuery) {
       url.searchParams.append("name_like", searchQuery);
@@ -45,7 +43,7 @@ export async function fetchLocations(
   searchQuery?: string
 ): Promise<SelectOption[]> {
   try {
-    const url = new URL(`${API_BASE_URL_LOCATIONS}/locations`);
+    const url = new URL(`${API_URLS.LOCATIONS}`);
 
     if (searchQuery) {
       url.searchParams.append("name_like", searchQuery);

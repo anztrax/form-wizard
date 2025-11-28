@@ -1,7 +1,6 @@
 import { PaginatedResponse, PaginationParams } from "../models/CommonApiModel";
 import { DetailModel, DetailPayload } from "../models/DetailInfoModel";
-
-const API_BASE_URL_LOCATIONS = "http://localhost:4002";
+import { API_URLS } from "./API_URLS";
 
 
 export async function fetchDetails(params?: PaginationParams): Promise<PaginatedResponse<DetailModel>> {
@@ -14,7 +13,7 @@ export async function fetchDetails(params?: PaginationParams): Promise<Paginated
       searchParams.append('_limit', params.limit.toString());
     }
 
-    const url = `${API_BASE_URL_LOCATIONS}/details${searchParams.toString() ? `?${searchParams.toString()}` : ''}`;
+    const url = `${API_URLS.DETAILS}${searchParams.toString() ? `?${searchParams.toString()}` : ''}`;
     const response = await fetch(url);
 
     if (!response.ok) {
@@ -42,7 +41,7 @@ export async function fetchDetails(params?: PaginationParams): Promise<Paginated
 
 export async function postDetail(data: DetailPayload): Promise<void> {
   try {
-    const response = await fetch(`${API_BASE_URL_LOCATIONS}/details`, {
+    const response = await fetch(`${API_URLS.DETAILS}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

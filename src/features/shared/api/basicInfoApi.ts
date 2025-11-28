@@ -6,9 +6,7 @@ import {
   PaginatedResponse,
   PaginationParams
 } from "../models/CommonApiModel";
-
-const API_BASE_URL = "http://localhost:4001";
-
+import { API_URLS } from "./API_URLS";
 
 export async function fetchBasicInfos(params?: PaginationParams): Promise<PaginatedResponse<BasicInfoModel>> {
   try {
@@ -20,7 +18,7 @@ export async function fetchBasicInfos(params?: PaginationParams): Promise<Pagina
       searchParams.append('_limit', params.limit.toString());
     }
 
-    const url = `${API_BASE_URL}/basicInfo${searchParams.toString() ? `?${searchParams.toString()}` : ''}`;
+    const url = `${API_URLS.BASIC_INFO}${searchParams.toString() ? `?${searchParams.toString()}` : ''}`;
     const response = await fetch(url);
 
     if (!response.ok) {
@@ -49,7 +47,7 @@ export async function fetchBasicInfos(params?: PaginationParams): Promise<Pagina
 
 export async function postBasicInfo(data: BasicInfoPayload): Promise<void> {
   try {
-    const response = await fetch(`${API_BASE_URL}/basicInfo`, {
+    const response = await fetch(`${API_URLS.BASIC_INFO}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
