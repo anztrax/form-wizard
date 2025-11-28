@@ -7,7 +7,7 @@ import { InputText } from "@/common/components/inputText/InputText";
 import { Select } from "@/common/components/select";
 import { roleSelectOptions } from "../resources";
 import { Step1Schema } from "../schema";
-import { useDepartmentsQuery } from "../../shared/hooks/useDepartmentsQuert";
+import { useDepartmentsQuery } from "../../shared/hooks/useDepartmentsQuery";
 import { useBasicInfosQuery } from "../../shared/hooks/useBasicInfosQuery";
 import { useDebounce } from "@/common/hooks/useDebounce";
 import { generateEmployeeId } from "../utils";
