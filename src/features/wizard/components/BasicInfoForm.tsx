@@ -11,6 +11,7 @@ import { useDepartmentsQuery } from "../../shared/hooks/useDepartmentsQuery";
 import { useBasicInfosQuery } from "../../shared/hooks/useBasicInfosQuery";
 import { useDebounce } from "@/common/hooks/useDebounce";
 import { generateEmployeeId } from "../utils";
+import { useToast } from "@/common/components/toast/useToast";
 import z from "zod";
 
 export default function BasicInfoForm() {
@@ -22,16 +23,42 @@ export default function BasicInfoForm() {
     setValue
   } = useFormContext<z.infer<typeof Step1Schema>>();
 
+  const { showToast } = useToast();
   const [departmentSearchText, setDepartmentSearchText] = useState("");
   const debouncedDepartementSearchText = useDebounce(departmentSearchText, 300);
 
   const {
     departments,
-    isLoading: departmentLoading
+    isLoading: departmentLoading,
+    isError: isDepartmentsError,
+    error: departmentsError,
   } = useDepartmentsQuery(
     debouncedDepartementSearchText
   );
-  const { count: existingCount } = useBasicInfosQuery();
+  const {
+    count: existingCount,
+    isError: isBasicInfosError,
+    error: basicInfosError,
+  } = useBasicInfosQuery();
+
+
+  useEffect(() => {
+    if (isDepartmentsError && departmentsError) {
+      showToast({
+        type: "error",
+        message: `Failed to fetch departments: ${departmentsError.message}`,
+      });
+    }
+  }, [isDepartmentsError, departmentsError]);
+
+  useEffect(() => {
+    if (isBasicInfosError && basicInfosError) {
+      showToast({
+        type: "error",
+        message: `Failed to fetch employee data: ${basicInfosError.message}`,
+      });
+    }
+  }, [isBasicInfosError, basicInfosError]);
 
   const selectedDepartment = watch("department");
   const selectedRole = watch("role");

@@ -11,5 +11,7 @@ export function useDepartmentsQuery(searchQuery: string = "", debounceMs: number
   return {
     departments: query.data ?? [],
     isLoading: query.isLoading,
+    isError: query.isError,
+    error: query.error,
   };
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PaginationState, ColumnDef } from "@tanstack/react-table";
 import { Table } from "@/common/components/table/Table";
 import { useEmployeesQuery } from "@/features/shared/hooks/useEmployeesQuery";
@@ -9,6 +9,7 @@ import { ImagePreviewModal } from "./ImagePreviewModal";
 import styles from "./EmployeeListContainer.module.css";
 import { Button } from "@/common/components/button/Button";
 import { useRouter } from "next/navigation";
+import { useToast } from "@/common/components/toast/useToast";
 
 type ImagePreviewState = {
   isOpen: boolean;
@@ -18,6 +19,7 @@ type ImagePreviewState = {
 
 export function EmployeeListContainer() {
   const router = useRouter();
+  const { showToast } = useToast();
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 1,
     pageSize: 10,
@@ -28,6 +30,20 @@ export function EmployeeListContainer() {
     imageUrl: "",
     employeeName: "",
   });
+
+  const { data, isPending, isError, error } = useEmployeesQuery({
+    page: pagination.pageIndex,
+    limit: pagination.pageSize,
+  });
+
+  useEffect(() => {
+    if (isError && error) {
+      showToast({
+        type: "error",
+        message: `Failed to fetch employees: ${error.message}`,
+      });
+    }
+  }, [isError, error]);
 
   const handleImageClick = (imageUrl: string, employeeName: string) => {
     setImagePreview({
@@ -48,11 +64,6 @@ export function EmployeeListContainer() {
   const handleClickAddEmployee = () => {
     router.push("/wizard?role=ops");
   };
-
-  const { data, isPending, isError, error } = useEmployeesQuery({
-    page: pagination.pageIndex,
-    limit: pagination.pageSize,
-  });
 
   const columns: ColumnDef<EmployeeModel>[] = [
     {
@@ -111,16 +122,6 @@ export function EmployeeListContainer() {
 
   const employeeData: EmployeeModel[] = data.employees || [];
 
-  if (isError) {
-    return (
-      <div className={styles["employee-list-container"]}>
-        <div className={styles["employee-list-container__error"]}>
-          Error loading employees: {error?.message}
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className={styles["employee-list-container"]}>
       <div className={styles["employee-list-container__header"]}>
@@ -141,15 +142,15 @@ export function EmployeeListContainer() {
         <Table
           data={employeeData}
           columns={columns}
-          enablePagination={true}
-          manualPagination={true}
+          enablePagination
+          manualPagination
           pageIndex={pagination.pageIndex}
           pageSize={pagination.pageSize}
           pageCount={data.details?.totalPages}
           totalRows={data.details?.total}
           onPaginationChange={handlePaginationChange}
           isLoading={isPending}
-          emptyMessage="No employees found"
+          emptyMessage={error ? "Failed to load employees." : "No employees found."}
         />
       </div>
 

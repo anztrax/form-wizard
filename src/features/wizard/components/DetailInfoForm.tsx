@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import { FormField } from "@/common/components/form/Form";
 import { Select } from "@/common/components/select";
@@ -10,6 +10,7 @@ import { employmentTypeSelectOptions } from "../resources";
 import { Step2Schema } from "../schema";
 import { useLocationsQuery } from "../../shared/hooks/useLocationsQuery";
 import { useDebounce } from "@/common/hooks/useDebounce";
+import { useToast } from "@/common/components/toast/useToast";
 import z from "zod";
 import { convertFiletoBase64 } from "@/common/utils/utils";
 
@@ -20,9 +21,24 @@ export default function DetailInfoForm() {
     formState: { errors },
   } = useFormContext<z.infer<typeof Step2Schema>>();
 
+  const { showToast } = useToast();
   const [locationSearch, setLocationSearch] = useState("");
   const debouncedLocationSearch = useDebounce(locationSearch, 200);
-  const { locations, isLoading: locationLoading } = useLocationsQuery(debouncedLocationSearch);
+  const {
+    locations,
+    isLoading: locationLoading,
+    isError: isLocationsError,
+    error: locationsError,
+  } = useLocationsQuery(debouncedLocationSearch);
+
+  useEffect(() => {
+    if (isLocationsError && locationsError) {
+      showToast({
+        type: "error",
+        message: `Failed to fetch locations: ${locationsError.message}`,
+      });
+    }
+  }, [isLocationsError, locationsError]);
 
   const handlePhotoChange = async (file: File | null) => {
     if (file) {

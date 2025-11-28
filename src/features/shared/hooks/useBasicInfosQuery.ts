@@ -11,5 +11,7 @@ export function useBasicInfosQuery() {
 
   return {
     count: query.data?.total ?? 0,
+    isError: query.isError,
+    error: query.error,
   };
 }
