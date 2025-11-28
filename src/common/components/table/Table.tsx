@@ -46,7 +46,7 @@ export function Table<TData>(props: TableProps<TData>) {
     className = "",
     enablePagination = true,
     pageSize: initialPageSize = 10,
-    pageIndex: initialPageIndex = 0,
+    pageIndex: initialPageIndex = 1,
     pageCount: controlledPageCount,
     totalRows,
     manualPagination = false,
@@ -77,10 +77,10 @@ export function Table<TData>(props: TableProps<TData>) {
     },
   });
 
-  const canPreviousPage = table.getCanPreviousPage();
-  const canNextPage = table.getCanNextPage();
-  const pageCount = table.getPageCount();
-  const currentPage = pagination.pageIndex + 1;
+  const canPreviousPage = pagination.pageIndex > 1;
+  const pageCount = controlledPageCount ?? table.getPageCount();
+  const canNextPage = pagination.pageIndex < pageCount;
+  const currentPage = pagination.pageIndex;
 
   const handlePageSizeChange: SelectProps['onChange'] = (value) => {
     if (value) {
@@ -159,7 +159,7 @@ export function Table<TData>(props: TableProps<TData>) {
               type="button"
               variant="outline"
               size="sm"
-              onClick={() => table.setPageIndex(0)}
+              onClick={() => table.setPageIndex(1)}
               disabled={!canPreviousPage}
               className={styles["table__pagination-button"]}
             >
@@ -192,7 +192,7 @@ export function Table<TData>(props: TableProps<TData>) {
               type="button"
               variant="outline"
               size="sm"
-              onClick={() => table.setPageIndex(pageCount - 1)}
+              onClick={() => table.setPageIndex(pageCount)}
               disabled={!canNextPage}
               className={styles["table__pagination-button"]}
             >
