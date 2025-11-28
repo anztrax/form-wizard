@@ -14,8 +14,31 @@ env:
   REPOSITORY: dummy-api-docker-repo
 
 jobs:
+  # This job runs first to ensure the Artifact Registry repository exists
+  setup-registry:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v1
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      - name: Setup Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+        with:
+          project_id: ${{ env.PROJECT_ID }}
+
+      - name: Create Artifact Registry Repository (if missing)
+        run: |
+          gcloud artifacts repositories describe ${{ env.REPOSITORY }} --location=${{ env.REGION }} 2>/dev/null || \
+          gcloud artifacts repositories create ${{ env.REPOSITORY }} \
+            --repository-format=docker \
+            --location=${{ env.REGION }} \
+            --description="Dummy API servers Docker repository"
+
   deploy-api-step1:
     runs-on: ubuntu-latest
+    needs: setup-registry
     env:
       SERVICE_NAME: api-step1
       PORT: 4001
@@ -33,14 +56,6 @@ jobs:
         uses: google-github-actions/setup-gcloud@v1
         with:
           project_id: ${{ env.PROJECT_ID }}
-
-      - name: Create Artifact Registry Repository (if missing)
-        run: |
-          gcloud artifacts repositories describe ${{ env.REPOSITORY }} --location=${{ env.REGION }} || \
-          gcloud artifacts repositories create ${{ env.REPOSITORY }} \
-            --repository-format=docker \
-            --location=${{ env.REGION }} \
-            --description="Dummy API servers Docker repository"
 
       - name: Configure Docker to use Artifact Registry
         run: |
@@ -91,6 +106,7 @@ jobs:
 
   deploy-api-step2:
     runs-on: ubuntu-latest
+    needs: setup-registry
     env:
       SERVICE_NAME: api-step2
       PORT: 4002
@@ -108,14 +124,6 @@ jobs:
         uses: google-github-actions/setup-gcloud@v1
         with:
           project_id: ${{ env.PROJECT_ID }}
-
-      - name: Create Artifact Registry Repository (if missing)
-        run: |
-          gcloud artifacts repositories describe ${{ env.REPOSITORY }} --location=${{ env.REGION }} || \
-          gcloud artifacts repositories create ${{ env.REPOSITORY }} \
-            --repository-format=docker \
-            --location=${{ env.REGION }} \
-            --description="Dummy API servers Docker repository"
 
       - name: Configure Docker to use Artifact Registry
         run: |
