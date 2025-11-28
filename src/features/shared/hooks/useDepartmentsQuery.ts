@@ -6,7 +6,6 @@ export function useDepartmentsQuery(searchQuery: string = "", debounceMs: number
   const query = useQuery<SelectOption[], Error>({
     queryKey: ["departments", searchQuery],
     queryFn: () => fetchDepartments(searchQuery),
-    enabled: true,
   });
 
   return {

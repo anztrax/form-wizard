@@ -6,7 +6,6 @@ export function useLocationsQuery(searchQuery: string = "") {
   const query = useQuery<SelectOption[], Error>({
     queryKey: ["locations", searchQuery],
     queryFn: () => fetchLocations(searchQuery),
-    enabled: true,
   });
 
   return {
