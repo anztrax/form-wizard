@@ -15,6 +15,9 @@ export const Step1Schema = z.object({
   department: z.string({
     error: "Department is required"
   }).min(1, "Department is required"),
+  departmentName: z.string({
+    error: "Department name is required"
+  }).min(1, "Department nameis required"),
   role: RoleEnum,
   employeeId: z.string().min(1, "Employee ID is missing"),
 });
@@ -29,6 +32,9 @@ export const Step2Schema = z.object({
   location: z.string({
     error: "Location is required"
   }).min(1, "Location is required"),
+  locationName: z.string({
+    error: "Location name is required"
+  }).min(1, "Location name is required"),
   notes: z.string().optional(),
 });
 

@@ -108,7 +108,12 @@ export default function BasicInfoForm() {
             <Select
               options={departments}
               value={field.value}
-              onChange={(value) => field.onChange(value)}
+              onChange={(value, option) => {
+                field.onChange(value);
+                setValue("departmentName", option?.label ?? "", {
+                  shouldDirty: true,
+                });
+              }}
               onInputChange={setDepartmentSearchText}
               placeholder="Search and select department..."
               showSearch

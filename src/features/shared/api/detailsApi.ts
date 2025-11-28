@@ -1,18 +1,17 @@
 const API_BASE_URL_LOCATIONS = "http://localhost:4002";
 
-export type Details = {
-  id: string;
-  photo: string;
-  employmentType: string;
-  location: string;
-  notes?: string;
-};
-
 export type DetailsPayload = {
   photo: string;
   employmentType: string;
   location: string;
+  locationName: string;
   notes?: string;
+  employeeId?: string;
+  email?: string;
+};
+
+export type Details = DetailsPayload & {
+  id: string;
 };
 
 export type PaginationParams = {

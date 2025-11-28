@@ -21,6 +21,16 @@ const getFormRoleType = (role: string | null): 'admin' | 'ops' => {
   return 'admin';
 }
 
+const FORM_MESSAGES = {
+  SUBMITTING_FORM: "⏳ Submitting form...",
+  SUBMITTING_BASIC_INFO: "⏳ Submitting basicInfo...",
+  SUBMITTING_DETAILS: "⏳ Submitting details...",
+  SUCCESS: "🎉 All data processed successfully!",
+  ERROR: "❌ Failed to submit form:",
+  TOAST_SUCCESS: "Form submitted successfully! All data has been processed.",
+  TOAST_ERROR: "Failed to submit form. Please try again.",
+} as const;
+
 export const useFormWizard = () => {
   const searchParams = useSearchParams();
   const remoteRoleType = getFormRoleType(searchParams.get("role"));
@@ -76,55 +86,60 @@ export const useFormWizard = () => {
   };
 
   const onSubmitForm = async (formValues: EmployeeFormValues) => {
-    showLoading("⏳ Submitting form...");
+    showLoading(FORM_MESSAGES.SUBMITTING_FORM);
     try {
       if (formValues.roleType === "admin") {
-        console.log("⏳ Submitting basicInfo...");
-        showLoading("⏳ Submitting basicInfo...");
+        console.log(FORM_MESSAGES.SUBMITTING_BASIC_INFO);
+        showLoading(FORM_MESSAGES.SUBMITTING_BASIC_INFO);
         await new Promise((resolve) => setTimeout(resolve, 3000));
         await submitBasicInfo.mutateAsync({
           fullName: formValues.fullName,
           email: formValues.email,
           department: formValues.department,
+          departmentName: formValues?.departmentName,
           role: formValues.role,
           employeeId: formValues.employeeId,
         });
 
         await new Promise((resolve) => setTimeout(resolve, 3000));
-        console.log("⏳ Submitting details...");
-        showLoading("⏳ Submitting details...");
+        console.log(FORM_MESSAGES.SUBMITTING_DETAILS);
+        showLoading(FORM_MESSAGES.SUBMITTING_DETAILS);
         await submitDetails.mutateAsync({
           photo: formValues.photo,
           employmentType: formValues.employmentType,
           location: formValues.location,
+          locationName: formValues.locationName,
           notes: formValues.notes,
+          employeeId: formValues?.employeeId,
+          email: formValues?.email,
         });
       } else {
-        console.log("⏳ Submitting details...");
-        showLoading("⏳ Submitting details...");
+        console.log(FORM_MESSAGES.SUBMITTING_DETAILS);
+        showLoading(FORM_MESSAGES.SUBMITTING_DETAILS);
         await new Promise((resolve) => setTimeout(resolve, 3000));
         await submitDetails.mutateAsync({
           photo: formValues.photo,
           employmentType: formValues.employmentType,
           location: formValues.location,
+          locationName: formValues.locationName,
           notes: formValues.notes,
         });
       }
-      console.log("🎉 All data processed successfully!");
-      showLoading("🎉 All data processed successfully!");
+      console.log(FORM_MESSAGES.SUCCESS);
+      showLoading(FORM_MESSAGES.SUCCESS);
       hideLoading();
       showToast({
         type: "success",
-        message: "Form submitted successfully! All data has been processed.",
+        message: FORM_MESSAGES.TOAST_SUCCESS,
         durationInMs: 5000,
       });
       onClearDraftAndReset();
     } catch (error) {
       hideLoading();
-      console.error("❌ Failed to submit form:", error);
+      console.error(FORM_MESSAGES.ERROR, error);
       showToast({
         type: "error",
-        message: error instanceof Error ? error.message : "Failed to submit form. Please try again.",
+        message: error instanceof Error ? error.message : FORM_MESSAGES.TOAST_ERROR,
         durationInMs: 5000,
       });
     } finally {

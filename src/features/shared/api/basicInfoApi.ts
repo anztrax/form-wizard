@@ -1,13 +1,19 @@
 const API_BASE_URL = "http://localhost:4001";
 
-export type BasicInfo = {
-  id: string;
+export type BasicInfoPayload = {
   fullName: string;
   email: string;
   department: string;
+  departmentName: string;
   role: string;
   employeeId: string;
 };
+
+
+export type BasicInfo = BasicInfoPayload & {
+  id: string;
+};
+
 
 export type PaginationParams = {
   _page?: number;
@@ -58,13 +64,6 @@ export async function fetchBasicInfo(params?: PaginationParams): Promise<Paginat
   }
 }
 
-export type BasicInfoPayload = {
-  fullName: string;
-  email: string;
-  department: string;
-  role: string;
-  employeeId: string;
-};
 
 export async function postBasicInfo(data: BasicInfoPayload): Promise<void> {
   try {

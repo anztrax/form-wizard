@@ -104,7 +104,12 @@ export default function DetailInfoForm() {
             <Select
               options={locations}
               value={field.value}
-              onChange={(value) => field.onChange(value)}
+              onChange={(value, option) => {
+                field.onChange(value);
+                setValue("locationName", option?.label ?? "", {
+                  shouldDirty: true,
+                });
+              }}
               onInputChange={setLocationSearch}
               placeholder="Search and select location..."
               showSearch
