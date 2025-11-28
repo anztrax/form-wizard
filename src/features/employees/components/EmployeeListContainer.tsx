@@ -8,6 +8,7 @@ import { EmployeeModel } from "@/features/shared/models/EmployeeModel";
 import { ImagePreviewModal } from "./ImagePreviewModal";
 import styles from "./EmployeeListContainer.module.css";
 import { Button } from "@/common/components/button/Button";
+import { useRouter } from "next/navigation";
 
 type ImagePreviewState = {
   isOpen: boolean;
@@ -16,6 +17,7 @@ type ImagePreviewState = {
 };
 
 export function EmployeeListContainer() {
+  const router = useRouter();
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 1,
     pageSize: 10,
@@ -41,6 +43,10 @@ export function EmployeeListContainer() {
       imageUrl: "",
       employeeName: "",
     });
+  };
+
+  const handleClickAddEmployee = () => {
+    router.push("/wizard?role=ops");
   };
 
   const { data, isPending, isError, error } = useEmployeesQuery({
@@ -125,7 +131,7 @@ export function EmployeeListContainer() {
               {data.details?.total} employees found
             </p>
           </div>
-          <Button variant="outline">
+          <Button variant="outline" onClick={handleClickAddEmployee}>
             + Add Employee
           </Button>
         </div>
