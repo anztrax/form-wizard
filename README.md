@@ -16,7 +16,7 @@ npm run storybook
 Open [http://localhost:6006](http://localhost:6006) with your browser to see the result.
 
 
-run local API: 
+Run local API:
 ```bash
 npm run mock-api
 ```
