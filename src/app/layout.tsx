@@ -1,4 +1,4 @@
-import { AppProviders } from "@/shared/providers/AppProviders";
+import { AppProviders } from "@/common/providers/AppProviders";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 

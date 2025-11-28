@@ -1,4 +1,4 @@
-import { getValuesFromOptions } from "@/shared/components/select";
+import { getValuesFromOptions } from "@/common/components/select";
 import { z } from "zod";
 import { employmentTypeSelectOptions, roleSelectOptions } from "./resources";
 

@@ -2,16 +2,16 @@
 
 import { useState } from "react";
 import { Controller, useFormContext } from "react-hook-form";
-import { FormField } from "@/shared/components/form/Form";
-import { Select } from "@/shared/components/select";
-import { Textarea } from "@/shared/components/textarea/Textarea";
-import { ImageUpload } from "@/shared/components/imageUpload/ImageUpload";
+import { FormField } from "@/common/components/form/Form";
+import { Select } from "@/common/components/select";
+import { Textarea } from "@/common/components/textarea/Textarea";
+import { ImageUpload } from "@/common/components/imageUpload/ImageUpload";
 import { employmentTypeSelectOptions } from "../resources";
 import { Step2Schema } from "../schema";
 import { useLocations } from "../../shared/hooks/useLocations";
-import { useDebounce } from "@/shared/hooks/useDebounce";
+import { useDebounce } from "@/common/hooks/useDebounce";
 import z from "zod";
-import { convertFiletoBase64 } from "@/shared/utils/utils";
+import { convertFiletoBase64 } from "@/common/utils/utils";
 
 export default function DetailInfoForm() {
   const {

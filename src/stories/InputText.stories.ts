@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
-import { InputText } from "@/shared/components/inputText/InputText";
+import { InputText } from "@/common/components/inputText/InputText";
 import { fn } from 'storybook/test';
 
 const meta = {

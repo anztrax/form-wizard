@@ -2,8 +2,8 @@ import type { Meta, StoryObj } from "@storybook/react";
 import {
   ToastProvider,
   useToast,
-} from "@/shared/components/toast/Toast";
-import { Button } from "@/shared/components/button/Button";
+} from "@/common/components/toast/Toast";
+import { Button } from "@/common/components/button/Button";
 
 const meta: Meta = {
   title: "Shared/Toast",

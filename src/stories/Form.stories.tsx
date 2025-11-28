@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
-import { Form, FormField, FormGap, FormLayout } from '@/shared/components/form/Form';
-import { InputText } from '@/shared/components/inputText/InputText';
-import { Button } from '@/shared/components/button/Button';
-import { Select } from '@/shared/components/select/Select';
+import { Form, FormField, FormGap, FormLayout } from '@/common/components/form/Form';
+import { InputText } from '@/common/components/inputText/InputText';
+import { Button } from '@/common/components/button/Button';
+import { Select } from '@/common/components/select/Select';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';

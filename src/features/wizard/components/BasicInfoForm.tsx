@@ -2,14 +2,14 @@
 
 import { useEffect, useState } from "react";
 import { Controller, useFormContext } from "react-hook-form";
-import { FormField } from "@/shared/components/form/Form";
-import { InputText } from "@/shared/components/inputText/InputText";
-import { Select } from "@/shared/components/select";
+import { FormField } from "@/common/components/form/Form";
+import { InputText } from "@/common/components/inputText/InputText";
+import { Select } from "@/common/components/select";
 import { roleSelectOptions } from "../resources";
 import { Step1Schema } from "../schema";
 import { useDepartments } from "../../shared/hooks/useDepartments";
 import { useBasicInfo } from "../../shared/hooks/useBasicInfo";
-import { useDebounce } from "@/shared/hooks/useDebounce";
+import { useDebounce } from "@/common/hooks/useDebounce";
 import { generateEmployeeId } from "../utils";
 import z from "zod";
 

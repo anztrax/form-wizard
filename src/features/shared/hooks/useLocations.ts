@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchLocations } from "../api/resourcesApi";
-import { SelectOption } from "@/shared/components/select";
+import { SelectOption } from "@/common/components/select";
 
 export function useLocations(searchQuery: string = "") {
   const query = useQuery<SelectOption[], Error>({

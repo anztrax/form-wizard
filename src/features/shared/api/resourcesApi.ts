@@ -1,4 +1,4 @@
-import { SelectOption } from "@/shared/components/select";
+import { SelectOption } from "@/common/components/select";
 
 const API_BASE_URL = "http://localhost:4001";
 const API_BASE_URL_LOCATIONS = "http://localhost:4002";

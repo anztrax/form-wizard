@@ -7,7 +7,7 @@ import {
   getLocalStorage,
   setLocalStorage,
   removeLocalStorage,
-} from "@/shared/lib/localStorageUtils";
+} from "@/common/lib/localStorageUtils";
 
 type UseFormDraftPersistenceParams<T extends FieldValues> = {
   form: UseFormReturn<T>;

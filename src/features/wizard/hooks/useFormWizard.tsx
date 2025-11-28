@@ -8,8 +8,8 @@ import { EmployeeFormSchema, EmployeeFormValues } from "../schema";
 import { adminSteps, opsSteps } from "../employeeWizardSteps";
 import { useFormDraftPersistence } from "./useFormDraftPersistence";
 import { useSubmitBasicInfo, useSubmitDetails } from "../../shared/hooks/useSubmitForm";
-import { useToast } from "@/shared/components/toast/useToast";
-import { useLoadingModal } from "@/shared/components/modal";
+import { useToast } from "@/common/components/toast/useToast";
+import { useLoadingModal } from "@/common/components/modal";
 
 const getFormRoleType = (role: string | null): 'admin' | 'ops' => {
   const lowercasedRole = (role ?? 'admin').toLowerCase();

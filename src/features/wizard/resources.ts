@@ -1,4 +1,4 @@
-import { SelectOption } from "@/shared/components/select";
+import { SelectOption } from "@/common/components/select";
 
 export const roleSelectOptions: Array<SelectOption> = [
   { value: 'ops', label: "Ops" },

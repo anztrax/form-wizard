@@ -1,11 +1,11 @@
 "use client";
 
-import { Form } from "@/shared/components/form/Form";
+import { Form } from "@/common/components/form/Form";
 import { FormProvider } from "react-hook-form";
 import { useFormWizard } from "../hooks/useFormWizard";
-import { Button } from "@/shared/components/button/Button";
-import { Container } from "@/shared/components/container/Container";
-import { Card } from "@/shared/components/card/Card";
+import { Button } from "@/common/components/button/Button";
+import { Container } from "@/common/components/container/Container";
+import { Card } from "@/common/components/card/Card";
 import { ArrowLeft, ArrowRight, SendHorizontal, Trash2 } from "lucide-react";
 import styles from "./FormWizardLayout.module.css";
 

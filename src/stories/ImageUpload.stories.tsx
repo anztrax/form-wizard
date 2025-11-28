@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { ImageUpload } from "@/shared/components/imageUpload/ImageUpload";
+import { ImageUpload } from "@/common/components/imageUpload/ImageUpload";
 import { useState } from "react";
-import { Button } from "@/shared/components/button/Button";
-import { InputText } from "@/shared/components/inputText/InputText";
+import { Button } from "@/common/components/button/Button";
+import { InputText } from "@/common/components/inputText/InputText";
 
 const meta: Meta<typeof ImageUpload> = {
   title: "Components/ImageUpload",

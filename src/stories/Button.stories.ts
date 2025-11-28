@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 
 import { fn } from 'storybook/test';
 
-import { Button } from '@/shared/components/button/Button';
+import { Button } from '@/common/components/button/Button';
 
 const meta = {
   title: 'Shared/Button',
