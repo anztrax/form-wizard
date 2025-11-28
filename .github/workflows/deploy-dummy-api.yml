@@ -2,8 +2,8 @@ name: Deploy Dummy API Servers to Cloud Run
 
 on:
   push:
-    branches:
-      - deploy/api-dummy
+    tags:
+      - 'release-api-dummy/*'
     paths:
       - 'dummyData/**'
       - '.github/workflows/deploy-dummy-api.yml'
