@@ -6,7 +6,7 @@ on:
       - deploy/api-dummy
     paths:
       - 'dummyData/**'
-      - '!dummyData/**.md'
+      - '.github/workflows/deploy-dummy-api.yml'
 
 env:
   PROJECT_ID: andrewanantagondo

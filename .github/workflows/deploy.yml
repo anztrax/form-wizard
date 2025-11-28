@@ -4,9 +4,15 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      - 'dummyData/**'
+      - '.github/workflows/deploy-dummy-api.yml'
   pull_request:
     branches:
       - main
+    paths-ignore:
+      - 'dummyData/**'
+      - '.github/workflows/deploy-dummy-api.yml'
 
 env:
   NODE_VERSION: "24"
