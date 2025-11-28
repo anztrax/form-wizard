@@ -1,40 +1,17 @@
+import { PaginatedResponse, PaginationParams } from "../models/CommonApiModel";
+import { DetailModel, DetailPayload } from "../models/DetailInfoModel";
+
 const API_BASE_URL_LOCATIONS = "http://localhost:4002";
 
-export type DetailsPayload = {
-  photo: string;
-  employmentType: string;
-  location: string;
-  locationName: string;
-  notes?: string;
-  employeeId?: string;
-  email?: string;
-};
 
-export type Details = DetailsPayload & {
-  id: string;
-};
-
-export type PaginationParams = {
-  _page?: number;
-  _limit?: number;
-};
-
-export type PaginatedResponse<T> = {
-  data: T[];
-  total: number;
-  page: number;
-  limit: number;
-  totalPages: number;
-};
-
-export async function fetchDetails(params?: PaginationParams): Promise<PaginatedResponse<Details>> {
+export async function fetchDetails(params?: PaginationParams): Promise<PaginatedResponse<DetailModel>> {
   try {
     const searchParams = new URLSearchParams();
-    if (params?._page) {
-      searchParams.append('_page', params._page.toString());
+    if (params?.page) {
+      searchParams.append('_page', params.page.toString());
     }
-    if (params?._limit) {
-      searchParams.append('_limit', params._limit.toString());
+    if (params?.limit) {
+      searchParams.append('_limit', params.limit.toString());
     }
 
     const url = `${API_BASE_URL_LOCATIONS}/details${searchParams.toString() ? `?${searchParams.toString()}` : ''}`;
@@ -44,11 +21,11 @@ export async function fetchDetails(params?: PaginationParams): Promise<Paginated
       throw new Error(`Failed to fetch details: ${response.statusText}`);
     }
 
-    const data: Details[] = await response.json();
+    const data: DetailModel[] = await response.json();
     const totalCount = response.headers.get('X-Total-Count');
     const total = totalCount ? parseInt(totalCount) : data.length;
-    const page = params?._page || 1;
-    const limit = params?._limit || total;
+    const page = params?.page || 1;
+    const limit = params?.limit || total;
 
     return {
       data,
@@ -63,7 +40,7 @@ export async function fetchDetails(params?: PaginationParams): Promise<Paginated
   }
 }
 
-export async function postDetails(data: DetailsPayload): Promise<void> {
+export async function postDetail(data: DetailPayload): Promise<void> {
   try {
     const response = await fetch(`${API_BASE_URL_LOCATIONS}/details`, {
       method: "POST",
@@ -74,10 +51,10 @@ export async function postDetails(data: DetailsPayload): Promise<void> {
     });
 
     if (!response.ok) {
-      throw new Error(`Failed to submit details: ${response.statusText}`);
+      throw new Error(`Failed to submit detail: ${response.statusText}`);
     }
   } catch (error) {
-    console.error("Error submitting details:", error);
+    console.error("Error submitting detail:", error);
     throw error;
   }
 }

@@ -7,7 +7,10 @@ import { useState } from "react";
 import { EmployeeFormSchema, EmployeeFormValues } from "../schema";
 import { adminSteps, opsSteps } from "../employeeWizardSteps";
 import { useFormDraftPersistence } from "./useFormDraftPersistence";
-import { useSubmitBasicInfo, useSubmitDetails } from "../../shared/hooks/useSubmitForm";
+import {
+  useSubmitBasicInfoMutation,
+  useSubmitDetailMutation
+} from "../../shared/hooks/useSubmitFormMutations";
 import { useToast } from "@/common/components/toast/useToast";
 import { useLoadingModal } from "@/common/components/modal";
 
@@ -54,8 +57,8 @@ export const useFormWizard = () => {
   const currentStep = steps[formStepIndex];
   const isLastStepIndex = formStepIndex === steps.length - 1;
 
-  const submitBasicInfo = useSubmitBasicInfo();
-  const submitDetails = useSubmitDetails();
+  const submitBasicInfoMutation = useSubmitBasicInfoMutation();
+  const submitDetailMutation = useSubmitDetailMutation();
 
   const { clearDraftAndReset } = useFormDraftPersistence<EmployeeFormValues>({
     form: formWizard,
@@ -92,7 +95,7 @@ export const useFormWizard = () => {
         console.log(FORM_MESSAGES.SUBMITTING_BASIC_INFO);
         showLoading(FORM_MESSAGES.SUBMITTING_BASIC_INFO);
         await new Promise((resolve) => setTimeout(resolve, 3000));
-        await submitBasicInfo.mutateAsync({
+        await submitBasicInfoMutation.mutateAsync({
           fullName: formValues.fullName,
           email: formValues.email,
           department: formValues.department,
@@ -104,7 +107,7 @@ export const useFormWizard = () => {
         await new Promise((resolve) => setTimeout(resolve, 3000));
         console.log(FORM_MESSAGES.SUBMITTING_DETAILS);
         showLoading(FORM_MESSAGES.SUBMITTING_DETAILS);
-        await submitDetails.mutateAsync({
+        await submitDetailMutation.mutateAsync({
           photo: formValues.photo,
           employmentType: formValues.employmentType,
           location: formValues.location,
@@ -117,7 +120,7 @@ export const useFormWizard = () => {
         console.log(FORM_MESSAGES.SUBMITTING_DETAILS);
         showLoading(FORM_MESSAGES.SUBMITTING_DETAILS);
         await new Promise((resolve) => setTimeout(resolve, 3000));
-        await submitDetails.mutateAsync({
+        await submitDetailMutation.mutateAsync({
           photo: formValues.photo,
           employmentType: formValues.employmentType,
           location: formValues.location,

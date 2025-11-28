@@ -7,8 +7,8 @@ import { InputText } from "@/common/components/inputText/InputText";
 import { Select } from "@/common/components/select";
 import { roleSelectOptions } from "../resources";
 import { Step1Schema } from "../schema";
-import { useDepartments } from "../../shared/hooks/useDepartments";
-import { useBasicInfo } from "../../shared/hooks/useBasicInfo";
+import { useDepartmentsQuery } from "../../shared/hooks/useDepartmentsQuert";
+import { useBasicInfosQuery } from "../../shared/hooks/useBasicInfosQuery";
 import { useDebounce } from "@/common/hooks/useDebounce";
 import { generateEmployeeId } from "../utils";
 import z from "zod";
@@ -28,10 +28,10 @@ export default function BasicInfoForm() {
   const {
     departments,
     isLoading: departmentLoading
-  } = useDepartments(
+  } = useDepartmentsQuery(
     debouncedDepartementSearchText
   );
-  const { count: existingCount } = useBasicInfo();
+  const { count: existingCount } = useBasicInfosQuery();
 
   const selectedDepartment = watch("department");
   const selectedRole = watch("role");
