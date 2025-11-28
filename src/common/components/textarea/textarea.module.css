@@ -9,6 +9,7 @@
   font-size: var(--font-size-sm);
   line-height: 1.4;
   color: var(--color-input-text);
+  font-family: inherit;
 
   padding: var(--input-padding-md);
   background-color: var(--color-input-background);
