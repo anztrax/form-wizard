@@ -21,7 +21,7 @@ import styles from "./table.module.css";
 
 export type TableProps<TData> = {
   data: TData[];
-  columns: ColumnDef<TData, any>[];
+  columns: ColumnDef<TData, unknown>[];
   className?: string;
   enablePagination?: boolean;
   pageSize?: number;

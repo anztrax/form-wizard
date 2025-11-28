@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Select, SelectOption, SelectProps } from "@/common/components/select";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo, useRef } from "react";
 
 const meta: Meta<typeof Select> = {
   title: "Shared/Select",
@@ -47,6 +47,15 @@ const COUNTRIES: SelectOption[] = [
   { label: "Malaysia", value: "my" },
 ];
 
+function BasicSelectDemo(args: SelectProps) {
+  const [value, setValue] = React.useState<string | null>(null);
+
+  return (
+    <div style={{ padding: 24, maxWidth: 320 }}>
+      <Select {...args} value={value} onChange={(val) => setValue(val)} />
+    </div>
+  );
+}
 
 export const Basic: Story = {
   args: {
@@ -56,20 +65,18 @@ export const Basic: Story = {
     size: "md",
     allowClear: true,
   },
-  render: (args) => {
-    const [value, setValue] = React.useState<string | null>(null);
-
-    return (
-      <div style={{ padding: 24, maxWidth: 320 }}>
-        <Select
-          {...args}
-          value={value}
-          onChange={(val) => setValue(val)}
-        />
-      </div>
-    );
-  },
+  render: (args) => <BasicSelectDemo {...args} />,
 };
+
+function WithSearchDemo(args: SelectProps) {
+  const [value, setValue] = React.useState<string | null>("banana");
+
+  return (
+    <div style={{ padding: 24, maxWidth: 320 }}>
+      <Select {...args} value={value} onChange={(val) => setValue(val)} />
+    </div>
+  );
+}
 
 export const WithSearch: Story = {
   args: {
@@ -79,19 +86,7 @@ export const WithSearch: Story = {
     size: "md",
     allowClear: true,
   },
-  render: (args) => {
-    const [value, setValue] = React.useState<string | null>("banana");
-
-    return (
-      <div style={{ padding: 24, maxWidth: 320 }}>
-        <Select
-          {...args}
-          value={value}
-          onChange={(val) => setValue(val)}
-        />
-      </div>
-    );
-  },
+  render: (args) => <WithSearchDemo {...args} />,
 };
 
 export const Disabled: Story = {
@@ -103,6 +98,16 @@ export const Disabled: Story = {
   },
 };
 
+function WithErrorDemo(args: SelectProps) {
+  const [value, setValue] = React.useState<string | null>(null);
+
+  return (
+    <div style={{ padding: 24, maxWidth: 320 }}>
+      <Select {...args} value={value} onChange={(val) => setValue(val)} />
+    </div>
+  );
+}
+
 export const WithError: Story = {
   args: {
     options: baseOptions,
@@ -110,19 +115,7 @@ export const WithError: Story = {
     showSearch: false,
     hasError: true,
   },
-  render: (args) => {
-    const [value, setValue] = React.useState<string | null>(null);
-
-    return (
-      <div style={{ padding: 24, maxWidth: 320 }}>
-        <Select
-          {...args}
-          value={value}
-          onChange={(val) => setValue(val)}
-        />
-      </div>
-    );
-  },
+  render: (args) => <WithErrorDemo {...args} />,
 };
 
 export const LoadingState: Story = {
@@ -135,32 +128,40 @@ export const LoadingState: Story = {
 };
 
 
-const Template = (args: SelectProps) => {
+function LoadingWithSearchDemo(args: SelectProps) {
   const [value, setValue] = useState<string | null>(null);
-  const [options, setOptions] = useState<SelectOption[]>(COUNTRIES);
   const [loading, setLoading] = useState(false);
-  const [selectedOption, setSelectedOption] = useState<SelectOption | null>(null);
+  const [selectedOption, setSelectedOption] = useState<SelectOption | null>(
+    null
+  );
   const [searchKeyword, setSearchKeyword] = useState("");
+
+  const filteredOptions = useMemo(() => {
+    if (!searchKeyword) return COUNTRIES;
+    const lower = searchKeyword.toLowerCase();
+    return COUNTRIES.filter((country) =>
+      country.label.toLowerCase().includes(lower)
+    );
+  }, [searchKeyword]);
+
+  const searchTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     if (!searchKeyword) {
-      setOptions(COUNTRIES);
       setLoading(false);
       return;
     }
 
     setLoading(true);
-    const handler = setTimeout(() => {
-      const lower = searchKeyword.toLowerCase();
-      const filtered = COUNTRIES.filter((country) =>
-        country.label.toLowerCase().includes(lower)
-      );
-
-      setOptions(filtered);
+    searchTimeoutRef.current = setTimeout(() => {
       setLoading(false);
     }, 100);
 
-    return () => clearTimeout(handler);
+    return () => {
+      if (searchTimeoutRef.current) {
+        clearTimeout(searchTimeoutRef.current);
+      }
+    };
   }, [searchKeyword]);
 
   return (
@@ -170,7 +171,7 @@ const Template = (args: SelectProps) => {
         value={value}
         showSearch
         loading={loading}
-        options={loading ? [] : options}
+        options={loading ? [] : filteredOptions}
         placeholder="Type to search country..."
         onChange={(val, opt) => {
           setValue(val);
@@ -181,11 +182,13 @@ const Template = (args: SelectProps) => {
         }}
       />
 
-      <div style={{
-        marginTop: 12,
-        fontSize: 12,
-        color: "#4b5563"
-      }}>
+      <div
+        style={{
+          marginTop: 12,
+          fontSize: 12,
+          color: "#4b5563",
+        }}
+      >
         Selected:{" "}
         {selectedOption
           ? `${selectedOption.label} (${selectedOption.value})`
@@ -193,11 +196,8 @@ const Template = (args: SelectProps) => {
       </div>
     </div>
   );
-};
-
+}
 
 export const LoadingWithSearch: Story = {
-  render: (args) => {
-    return <Template {...args} />;
-  }
-}
+  render: (args) => <LoadingWithSearchDemo {...args} />,
+};

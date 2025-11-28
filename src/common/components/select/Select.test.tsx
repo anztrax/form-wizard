@@ -2,7 +2,7 @@ import { describe, it, expect, vi } from "vitest";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { Select, SelectOption } from "./index";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 
 const baseOptions: SelectOption[] = [
   { label: "Apple", value: "apple" },
@@ -18,28 +18,35 @@ const COUNTRIES: SelectOption[] = [
 
 function SelectWrapper({ onSearch }: { onSearch?: (keyword: string) => void }) {
   const [value, setValue] = useState<string | null>(null);
-  const [options, setOptions] = useState<SelectOption[]>(COUNTRIES);
   const [loading, setLoading] = useState(false);
   const [searchKeyword, setSearchKeyword] = useState("");
 
+  const filteredOptions = useMemo(() => {
+    if (!searchKeyword) return COUNTRIES;
+    return COUNTRIES.filter((item) =>
+      item.label.toLowerCase().includes(searchKeyword.toLowerCase())
+    );
+  }, [searchKeyword]);
+
+  const searchTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
   useEffect(() => {
     if (!searchKeyword) {
-      setOptions(COUNTRIES);
       setLoading(false);
       return;
     }
 
     setLoading(true);
-    const handler = setTimeout(() => {
-      const filtered = COUNTRIES.filter((item) =>
-        item.label.toLowerCase().includes(searchKeyword.toLowerCase())
-      );
-      setOptions(filtered);
+    searchTimeoutRef.current = setTimeout(() => {
       setLoading(false);
       onSearch?.(searchKeyword);
     }, 50);
 
-    return () => clearTimeout(handler);
+    return () => {
+      if (searchTimeoutRef.current) {
+        clearTimeout(searchTimeoutRef.current);
+      }
+    };
   }, [searchKeyword, onSearch]);
 
   return (
@@ -47,7 +54,7 @@ function SelectWrapper({ onSearch }: { onSearch?: (keyword: string) => void }) {
       value={value}
       showSearch
       loading={loading}
-      options={loading ? [] : options}
+      options={loading ? [] : filteredOptions}
       placeholder="Search country..."
       onChange={(val) => setValue(val)}
       onInputChange={setSearchKeyword}

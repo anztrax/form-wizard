@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
 import styles from "./modal.module.css";
 import classNames from "classnames";
@@ -37,13 +37,7 @@ export function Modal(props: ModalProps) {
   } = props;
 
   const { overlayZIndex, dialogZIndex } = useModalLayer();
-  const [isBrowser, setIsBrowser] = useState(false);
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      setIsBrowser(true);
-    }
-  }, []);
+  const isBrowser = typeof window !== "undefined";
 
   useEffect(() => {
     if (!isOpen || !closeOnEsc) {

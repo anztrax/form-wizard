@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import classNames from "classnames";
 import styles from "./select.module.css";
 import { SelectOption } from "./types";
@@ -87,8 +87,7 @@ export function Select(props: SelectProps) {
     className
   );
 
-  // Calculate dropdown position
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!isOptionsOpen || !containerRef.current) return;
 
     const container = containerRef.current;
@@ -98,14 +97,10 @@ export function Select(props: SelectProps) {
     const spaceAbove = rect.top;
     const dropdownHeight = 220;
 
-    if (spaceBelow < dropdownHeight && spaceAbove > spaceBelow) {
-      setDropdownPosition('top');
-    } else {
-      setDropdownPosition('bottom');
-    }
+    const newPosition = spaceBelow < dropdownHeight && spaceAbove > spaceBelow ? 'top' : 'bottom';
+    setDropdownPosition(newPosition);
   }, [isOptionsOpen]);
 
-  // Close dropdown on outside click
   useEffect(() => {
     if (!isOptionsOpen) return;
 
@@ -119,9 +114,15 @@ export function Select(props: SelectProps) {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isOptionsOpen]);
 
-  // Adjust highlighted index when filtered options change
-  useEffect(() => {
-    if (!isOptionsOpen) {
+  const prevIsOptionsOpenRef = useRef(isOptionsOpen);
+
+  useLayoutEffect(() => {
+    const wasOpen = prevIsOptionsOpenRef.current;
+    const isNowOpen = isOptionsOpen;
+    prevIsOptionsOpenRef.current = isOptionsOpen;
+
+    // Dropdown just closed - reset state
+    if (wasOpen && !isNowOpen) {
       setHighlightedIndex(INITIAL_VALUES.HIGHLIGHTED_INDEX);
       setIsKeyboardNav(INITIAL_VALUES.KEYBOARD_NAV);
       isScrollingRef.current = false;
@@ -132,9 +133,13 @@ export function Select(props: SelectProps) {
       return;
     }
 
-    if (showSearch && inputRef.current) {
+    if (!wasOpen && isNowOpen && showSearch && inputRef.current) {
       inputRef.current.focus();
     }
+  }, [isOptionsOpen, showSearch, onInputChange]);
+
+  useEffect(() => {
+    if (!isOptionsOpen) return;
 
     if (isFilterOptionsEmpty) {
       setHighlightedIndex(INITIAL_VALUES.HIGHLIGHTED_INDEX);
@@ -148,7 +153,7 @@ export function Select(props: SelectProps) {
         setHighlightedIndex(firstValidIndex);
       }
     }
-  }, [filteredOptions, isOptionsOpen, highlightedIndex]);
+  }, [filteredOptions, isOptionsOpen, highlightedIndex, isFilterOptionsEmpty]);
 
   // Keyboard navigation
   useEffect(() => {

@@ -13,7 +13,7 @@ export function setLocalStorage<T>(key: string, value: T): boolean {
     const serialized = JSON.stringify(value);
     window.localStorage.setItem(key, serialized);
     return true;
-  } catch (error) {
+  } catch {
     return false;
   }
 }
@@ -34,7 +34,7 @@ export function getLocalStorage<T>(
     }
 
     return JSON.parse(item) as T;
-  } catch (error) {
+  } catch {
     return defaultValue;
   }
 }
@@ -47,7 +47,7 @@ export function removeLocalStorage(key: string): boolean {
 
     window.localStorage.removeItem(key);
     return true;
-  } catch (error) {
+  } catch {
     return false;
   }
 }
@@ -60,7 +60,7 @@ export function clearLocalStorage(): boolean {
 
     window.localStorage.clear();
     return true;
-  } catch (error) {
+  } catch {
     return false;
   }
 }
