@@ -74,10 +74,6 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 20px;
-  height: 20px;
-  border-radius: var(--radius-full);
-  background-color: rgba(15, 23, 42, 0.25);
   font-size: var(--font-size-xs);
 }
 
