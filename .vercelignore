@@ -1,0 +1,17 @@
+# Ignore Docker files
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Ignore dummy data server files
+dummyData/
+
+# Ignore CI/CD configs
+.github/
+
+# Ignore development files
+.env.local
+.env.development
+
+# Ignore storybook build output
+storybook-static/
