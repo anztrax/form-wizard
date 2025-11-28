@@ -13,6 +13,7 @@ import {
 } from "../../shared/hooks/useSubmitFormMutations";
 import { useToast } from "@/common/components/toast/useToast";
 import { useLoadingModal } from "@/common/components/modal";
+import { useRouter } from "next/navigation";
 
 const getFormRoleType = (role: string | null): 'admin' | 'ops' => {
   const lowercasedRole = (role ?? 'admin').toLowerCase();
@@ -35,6 +36,7 @@ const FORM_MESSAGES = {
 } as const;
 
 export const useFormWizard = () => {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const remoteRoleType = getFormRoleType(searchParams.get("role"));
 
@@ -137,6 +139,7 @@ export const useFormWizard = () => {
         durationInMs: 5000,
       });
       onClearDraftAndReset();
+      router.push('/employees');
     } catch (error) {
       hideLoading();
       console.error(FORM_MESSAGES.ERROR, error);
