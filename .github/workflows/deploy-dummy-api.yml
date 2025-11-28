@@ -1,0 +1,165 @@
+name: Deploy Dummy API Servers to Cloud Run
+
+on:
+  push:
+    branches:
+      - deploy/api-dummy
+    paths:
+      - 'dummyData/**'
+      - '!dummyData/**.md'
+
+env:
+  PROJECT_ID: andrewanantagondo
+  REGION: asia-southeast1
+  REPOSITORY: dummy-api-docker-repo
+
+jobs:
+  deploy-api-step1:
+    runs-on: ubuntu-latest
+    env:
+      SERVICE_NAME: api-step1
+      PORT: 4001
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v1
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      - name: Setup Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+        with:
+          project_id: ${{ env.PROJECT_ID }}
+
+      - name: Create Artifact Registry Repository (if missing)
+        run: |
+          gcloud artifacts repositories describe ${{ env.REPOSITORY }} --location=${{ env.REGION }} || \
+          gcloud artifacts repositories create ${{ env.REPOSITORY }} \
+            --repository-format=docker \
+            --location=${{ env.REGION }} \
+            --description="Dummy API servers Docker repository"
+
+      - name: Configure Docker to use Artifact Registry
+        run: |
+          gcloud auth configure-docker ${{ env.REGION }}-docker.pkg.dev
+
+      - name: Build Docker Image
+        working-directory: dummyData
+        run: |
+          docker build \
+            -t ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.SERVICE_NAME }}:${{ github.sha }} \
+            -t ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.SERVICE_NAME }}:latest \
+            -f Dockerfile.step1 .
+
+      - name: Push Docker Image to Artifact Registry
+        run: |
+          docker push ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.SERVICE_NAME }}:${{ github.sha }}
+          docker push ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.SERVICE_NAME }}:latest
+
+      - name: Deploy to Cloud Run
+        run: |
+          gcloud run deploy ${{ env.SERVICE_NAME }} \
+            --image ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.SERVICE_NAME }}:${{ github.sha }} \
+            --region ${{ env.REGION }} \
+            --platform managed \
+            --allow-unauthenticated \
+            --port ${{ env.PORT }} \
+            --memory 256Mi \
+            --cpu 1 \
+            --min-instances 0 \
+            --max-instances 2
+
+      - name: Cleanup old Docker image versions (keep last 3)
+        run: |
+          echo "Fetching all image versions for ${{ env.SERVICE_NAME }}..."
+          
+          gcloud artifacts versions list \
+            --package="${{ env.SERVICE_NAME }}" \
+            --location="${{ env.REGION }}" \
+            --project="${{ env.PROJECT_ID }}" \
+            --repository="${{ env.REPOSITORY }}" \
+            --format="value(name)" \
+            --sort-by=~updateTime \
+            | tail -n +4 \
+            | while read version; do
+                echo "Deleting version: $version"
+                gcloud artifacts versions delete "$version" --location="${{ env.REGION }}" --repository="${{ env.REPOSITORY }}" --package="${{ env.SERVICE_NAME }}" --quiet
+              done
+
+  deploy-api-step2:
+    runs-on: ubuntu-latest
+    env:
+      SERVICE_NAME: api-step2
+      PORT: 4002
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v1
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      - name: Setup Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+        with:
+          project_id: ${{ env.PROJECT_ID }}
+
+      - name: Create Artifact Registry Repository (if missing)
+        run: |
+          gcloud artifacts repositories describe ${{ env.REPOSITORY }} --location=${{ env.REGION }} || \
+          gcloud artifacts repositories create ${{ env.REPOSITORY }} \
+            --repository-format=docker \
+            --location=${{ env.REGION }} \
+            --description="Dummy API servers Docker repository"
+
+      - name: Configure Docker to use Artifact Registry
+        run: |
+          gcloud auth configure-docker ${{ env.REGION }}-docker.pkg.dev
+
+      - name: Build Docker Image
+        working-directory: dummyData
+        run: |
+          docker build \
+            -t ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.SERVICE_NAME }}:${{ github.sha }} \
+            -t ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.SERVICE_NAME }}:latest \
+            -f Dockerfile.step2 .
+
+      - name: Push Docker Image to Artifact Registry
+        run: |
+          docker push ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.SERVICE_NAME }}:${{ github.sha }}
+          docker push ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.SERVICE_NAME }}:latest
+
+      - name: Deploy to Cloud Run
+        run: |
+          gcloud run deploy ${{ env.SERVICE_NAME }} \
+            --image ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.SERVICE_NAME }}:${{ github.sha }} \
+            --region ${{ env.REGION }} \
+            --platform managed \
+            --allow-unauthenticated \
+            --port ${{ env.PORT }} \
+            --memory 256Mi \
+            --cpu 1 \
+            --min-instances 0 \
+            --max-instances 2
+
+      - name: Cleanup old Docker image versions (keep last 3)
+        run: |
+          echo "Fetching all image versions for ${{ env.SERVICE_NAME }}..."
+          
+          gcloud artifacts versions list \
+            --package="${{ env.SERVICE_NAME }}" \
+            --location="${{ env.REGION }}" \
+            --project="${{ env.PROJECT_ID }}" \
+            --repository="${{ env.REPOSITORY }}" \
+            --format="value(name)" \
+            --sort-by=~updateTime \
+            | tail -n +4 \
+            | while read version; do
+                echo "Deleting version: $version"
+                gcloud artifacts versions delete "$version" --location="${{ env.REGION }}" --repository="${{ env.REPOSITORY }}" --package="${{ env.SERVICE_NAME }}" --quiet
+              done

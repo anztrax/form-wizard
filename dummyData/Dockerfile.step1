@@ -1,0 +1,11 @@
+FROM node:24.8.0-alpine
+
+WORKDIR /app
+
+RUN npm install -g json-server@0.17.4
+
+COPY db-step1.json /app/db-step1.json
+
+EXPOSE 4001
+
+CMD ["json-server", "--watch", "db-step1.json", "--port", "4001", "--host", "0.0.0.0"]

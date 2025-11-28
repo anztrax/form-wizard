@@ -65,7 +65,6 @@ jobs:
 
       - name: Run linting
         run: npm run lint
-s
   deploy:
     name: Deploy to Cloudflare
     runs-on: ubuntu-latest
